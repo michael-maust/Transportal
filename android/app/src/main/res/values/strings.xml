@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">Transportal</string>
-    <string name="title_activity_main">Transportal</string>
-    <string name="package_name">Transportal.app</string>
-    <string name="custom_url_scheme">Transportal.app</string>
-</resources>
