@@ -10,15 +10,15 @@ import ExploreContainer from "../components/ExploreContainer";
 const RouteList = () => {
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader class="ion-no-border">
         <IonToolbar>
-          <IonTitle>RouteList</IonTitle>
+          <IonTitle>Available Routes</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">RouteList</IonTitle>
+            <IonTitle size="large">Available Routes</IonTitle>
           </IonToolbar>
         </IonHeader>
         <ExploreContainer name="RouteList page" />
