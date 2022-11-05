@@ -6,13 +6,15 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import ExploreContainer from "../components/ExploreContainer";
-
+import Logo from "../assets/images/Transportal-Logo.svg";
 const Welcome = () => {
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle><img src="/assets/images/logo.svg" alt="Logo"/></IonTitle>
+          <IonTitle>
+            <img src={Logo} alt="Logo" />
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
