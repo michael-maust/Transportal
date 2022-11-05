@@ -12,13 +12,13 @@ const Welcome = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Welcome</IonTitle>
+          <IonTitle><img src="/assets/images/logo.svg" alt="Logo"/></IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Welcome</IonTitle>
+            <IonTitle size="large"></IonTitle>
           </IonToolbar>
         </IonHeader>
         <ExploreContainer name="Welcome page" />
