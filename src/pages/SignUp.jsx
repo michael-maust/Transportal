@@ -10,7 +10,7 @@ import ExploreContainer from "../components/ExploreContainer";
 const SignUp = () => {
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader class="ion-no-border">
         <IonToolbar>
           <IonTitle>SignUp</IonTitle>
         </IonToolbar>
