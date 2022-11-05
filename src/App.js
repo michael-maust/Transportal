@@ -17,6 +17,8 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import {setupIonicReact} from "@ionic/react";
 
+import "./theme/variables.css";
+
 setupIonicReact();
 
 function App() {
@@ -24,7 +26,7 @@ function App() {
     <div
       style={{margin: "0 1rem 0 1rem", paddingTop: "env(safe-area-inset-top)"}}
     >
-      <h1>Transportal</h1>
+      <h1 className="dark:text-white text-center">Transportal</h1>
       <Outlet />
     </div>
   );
