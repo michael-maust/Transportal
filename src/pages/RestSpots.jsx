@@ -7,24 +7,24 @@ import {
 } from "@ionic/react";
 import ExploreContainer from "../components/ExploreContainer";
 
-const Home = () => {
+const RestSpots = () => {
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader class="ion-no-border">
         <IonToolbar>
-          <IonTitle>Home</IonTitle>
+          <IonTitle>Rest Spots</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Home</IonTitle>
+            <IonTitle size="large">Rest Spots</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="Home page" />
+        <ExploreContainer name="Rest Spots" />
       </IonContent>
     </IonPage>
   );
 };
 
-export default Home;
+export default RestSpots;

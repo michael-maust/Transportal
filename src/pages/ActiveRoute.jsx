@@ -11,9 +11,9 @@ import TranpsortalMap from "../components/TransportalMap";
 const ActiveRoute = () => {
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader class="ion-no-border">
         <IonToolbar>
-          <IonTitle>ActiveRoute</IonTitle>
+          <IonTitle>Active Routes</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
