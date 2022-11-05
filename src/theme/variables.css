@@ -13,6 +13,11 @@
   src: url("../assets/fonts/Roboto-Bold.ttf");
 }
 
+@font-face {
+  font-family: "Roboto-Medium";
+  src: url("../assets/fonts/Roboto-Medium.ttf");
+}
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
@@ -20,8 +25,8 @@
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+  --ion-color-primary-shade: #d75633;
+  --ion-color-primary-tint: #d75633;
 
   /** secondary **/
   --ion-color-secondary: #3dc2ff;
