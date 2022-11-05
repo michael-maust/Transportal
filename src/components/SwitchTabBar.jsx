@@ -8,8 +8,8 @@ import {
   IonTabs,
 } from "@ionic/react";
 import {IonReactRouter} from "@ionic/react-router";
-import {home, person, settings} from "ionicons/icons";
-import Home from "../pages/Home";
+import {speedometer, map, bed} from "ionicons/icons";
+import RestSpots from "../pages/RestSpots";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import Welcome from "../pages/Welcome";
@@ -27,32 +27,26 @@ const SwitchTabBar = () => {
     {
       label: "Routes",
       url: "/routes",
-      icon: person,
-      color: "#e46062",
-      backgroundColor: "#fcddde",
+      icon: map,
       component: RouteList,
-    },
-    {
-      label: "Home",
-      url: "/home",
-      icon: home,
-      color: "#76b140",
-      backgroundColor: "#ddf7c5",
-      component: Home,
     },
     {
       label: "Active Route",
       url: "/settings",
-      icon: settings,
-      color: "#3578e5",
-      backgroundColor: "#e7f0ff",
+      icon: speedometer,
       component: ActiveRoute,
+    },
+    {
+      label: "Rest",
+      url: "/rest",
+      icon: bed,
+      component: RestSpots,
     },
   ];
 
   const revealAnimation = {
     property: "transform",
-    fromValue: "translateX(-30px)",
+    fromValue: "translateY(30px)",
     toValue: "translateX(0px)",
   };
 
@@ -64,11 +58,18 @@ const SwitchTabBar = () => {
     easing: "ease-in-out",
   };
 
-  const getTabButtonStyle = (tab) => {
+  const getTabButtonStyle = () => {
     const tabStyle = {
-      backgroundColor: tab.backgroundColor,
-      color: tab.color,
+      backgroundColor: "#48484a",
+      color: "#DF7A5E",
       transition: "0.5s all ease-in-out",
+      borderRadius: "10px",
+      padding: 0,
+      margin: 0,
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
     };
 
     return tabStyle;
@@ -92,7 +93,7 @@ const SwitchTabBar = () => {
           })}
 
           <Route exact path="/">
-            <Redirect to="/home" />
+            <Redirect to="/routes" />
           </Route>
 
           <Route exact path="/signin">
@@ -118,7 +119,7 @@ const SwitchTabBar = () => {
             return (
               <IonTabButton
                 key={index}
-                style={isActive ? tabStyle : {}}
+                style={isActive ? tabStyle : {color: "#C1C1C2"}}
                 tab={`tab${index}`}
                 href={tab.url}
               >
