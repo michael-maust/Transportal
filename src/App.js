@@ -1,4 +1,5 @@
 import "./App.css";
+import {weatherData} from './services/weather.js';
 import {Outlet} from "react-router-dom";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -25,6 +26,7 @@ function App() {
       style={{margin: "0 1rem 0 1rem", paddingTop: "env(safe-area-inset-top)"}}
     >
       <h1>Transportal</h1>
+      {weatherData(17.50034,41.77997)}
       <Outlet />
     </div>
   );
