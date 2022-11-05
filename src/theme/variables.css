@@ -154,3 +154,7 @@ ion-header ion-title {
 .welcome-button {
   max-width: 30em;
 }
+
+.welcome-title {
+  max-width: 20em;
+}
