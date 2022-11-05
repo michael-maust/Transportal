@@ -1,11 +1,15 @@
-const SearchResult = (place) => {
-    const { name } = place.place;
+const SearchResult = (props) => {
+    const { name, coordinates } = props.place;
     const firstComma = name.indexOf(',');
 
+    const onSelect = () => {
+        props.setLocation(coordinates);
+    }
+
     return (
-        <li>
-            <h5>{name.substr(0, firstComma)}</h5>
-            <p>{name.substr(firstComma + 2, name.length)}</p>
+        <li className=" text-white p-5 hover:bg-slate-500" onClick={onSelect}>
+            <p className=" font-semibold">{name.substr(0, firstComma)}</p>
+            <p className=" font-light">{name.substr(firstComma + 2, name.length)}</p>
         </li>
     )
 };
