@@ -1,8 +1,8 @@
-import './ExploreContainer.css';
+import "./ExploreContainer.css";
 
-const ExploreContainer = ({ name }) => {
+const ExploreContainer = ({name}) => {
   return (
-    <div className="container">
+    <div className="container bg-red-400 text-blue-600">
       <strong>{name}</strong>
     </div>
   );

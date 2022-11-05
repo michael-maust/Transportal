@@ -16,6 +16,7 @@ const RouteList = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+        <div className="bg-red-200 h-20 w-full">test</div>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">RouteList</IonTitle>
