@@ -1,5 +1,8 @@
 import "./App.css";
-import {Outlet} from "react-router-dom";
+import {IonApp, IonRouterOutlet} from "react-router-dom";
+import {IonReactRouter} from "@ionic/react-router";
+import {Redirect, Route} from "react-router-dom";
+
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -27,7 +30,15 @@ function App() {
       style={{margin: "0 1rem 0 1rem", paddingTop: "env(safe-area-inset-top)"}}
     >
       <h1 className="dark:text-white text-center">Transportal</h1>
-      <Outlet />
+
+      <IonApp>
+        <IonReactRouter>
+          <IonRouterOutlet>
+            <Route path="/dashboard" component={DashboardPage} />
+            <Redirect exact from="/" to="/dashboard" />
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </IonApp>
     </div>
   );
 }
