@@ -9,8 +9,8 @@ import {
   useIonAlert,
   useIonLoading,
 } from "@ionic/react";
-import {useNavigate} from "react-router-dom";
-import {logIn} from "ionicons/icons";
+import { useNavigate, Link } from "react-router-dom";
+import { logIn } from "ionicons/icons";
 
 function Login() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ function Login() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    await present({message: "Loading..."}); // TODO: Add truck animation icon for loading
+    await present({ message: "Loading..." }); // TODO: Add truck animation icon for loading
 
     // TODO: replace with proper user check
     setTimeout(() => {
@@ -28,7 +28,7 @@ function Login() {
         alert({
           header: "Invalid credentials",
           message: "There is no user with that name and password.",
-          buttons: [{text: "Ok"}],
+          buttons: [{ text: "Ok" }],
         });
       } else {
         navigate("/app/dashboard");
@@ -58,6 +58,7 @@ function Login() {
               </IonButton>
             </div>
           </form>
+          <Link to="/app/signup">Create Account</Link>
         </IonCardContent>
       </IonCard>
     </>
