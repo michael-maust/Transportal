@@ -1,52 +1,66 @@
-import {useState} from "react";
+import {
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonIcon,
+  IonInput,
+  IonItem,
+  IonLabel,
+  useIonAlert,
+  useIonLoading,
+} from "@ionic/react";
 import {useNavigate} from "react-router-dom";
+import {logIn} from "ionicons/icons";
 
 function Login() {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [alert] = useIonAlert();
+  const [present, dismiss] = useIonLoading();
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
+    await present({message: "Loading..."}); // TODO: Add truck animation icon for loading
 
-    console.log("submit!");
-
+    // TODO: replace with proper user check
     setTimeout(() => {
-      setLoading(false);
-      navigate("/app/dashboard");
+      dismiss();
+      if (Math.random() < 0.5) {
+        alert({
+          header: "Invalid credentials",
+          message: "There is no user with that name and password.",
+          buttons: [{text: "Ok"}],
+        });
+      } else {
+        navigate("/app/dashboard");
+      }
     }, 1500);
   };
 
   return (
-    <main style={{textAlign: "center"}}>
-      <h2>Login</h2>
-      <form onSubmit={onSubmit}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "10px",
-          }}
-        >
-          <div>
-            <label>Email:</label>
-            <input type="text"></input>
-          </div>
+    <>
+      <IonCard>
+        <IonCardContent>
+          <form onSubmit={onSubmit}>
+            <IonItem>
+              <IonLabel position="floating">Email</IonLabel>
+              <IonInput type="email"></IonInput>
+            </IonItem>
 
-          <div>
-            <label>Password:</label>
-            <input type="password"></input>
-          </div>
+            <IonItem>
+              <IonLabel position="floating">Password</IonLabel>
+              <IonInput type="password"></IonInput>
+            </IonItem>
 
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <button type="submit">Login</button>
-          )}
-        </div>
-      </form>
-    </main>
+            <div className="ion-margin-top">
+              <IonButton expand="full" type="submit" color="secondary">
+                <IonIcon icon={logIn} slot="start" />
+                Login
+              </IonButton>
+            </div>
+          </form>
+        </IonCardContent>
+      </IonCard>
+    </>
   );
 }
 
