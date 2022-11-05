@@ -1,11 +1,7 @@
-import {useNavigate} from "react-router-dom";
+import React from "react";
 
 function Dashboard() {
-  const navigate = useNavigate();
-
-  const onLogout = () => {
-    navigate("/");
-  };
+  const onLogout = () => {};
 
   return (
     <>

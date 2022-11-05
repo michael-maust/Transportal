@@ -1,5 +1,6 @@
 import {
   IonButton,
+  IonPage,
   IonCard,
   IonCardContent,
   IonIcon,
@@ -9,11 +10,10 @@ import {
   useIonAlert,
   useIonLoading,
 } from "@ionic/react";
-import { useNavigate, Link } from "react-router-dom";
 import { logIn } from "ionicons/icons";
+import React from "react";
 
 function Login() {
-  const navigate = useNavigate();
   const [alert] = useIonAlert();
   const [present, dismiss] = useIonLoading();
 
@@ -31,13 +31,12 @@ function Login() {
           buttons: [{ text: "Ok" }],
         });
       } else {
-        navigate("/app/dashboard");
       }
     }, 1500);
   };
 
   return (
-    <>
+    <IonPage>
       <IonCard>
         <IonCardContent>
           <form onSubmit={onSubmit}>
@@ -58,10 +57,9 @@ function Login() {
               </IonButton>
             </div>
           </form>
-          <Link to="/app/signup">Create Account</Link>
         </IonCardContent>
       </IonCard>
-    </>
+    </IonPage>
   );
 }
 

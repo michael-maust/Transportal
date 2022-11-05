@@ -1,5 +1,6 @@
 import {
   IonButton,
+  IonPage,
   IonCard,
   IonCardContent,
   IonIcon,
@@ -9,10 +10,9 @@ import {
   useIonAlert,
   useIonLoading,
 } from "@ionic/react";
-import { useNavigate, Navigate } from "react-router-dom";
 import { logIn } from "ionicons/icons";
 import supabase from "../supabase";
-import { useState } from "react";
+import React, { useState } from "react";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -20,7 +20,6 @@ function Signup() {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState("");
   const [Rmsg, setRmsg] = useState("");
-  const navigate = useNavigate();
   const [alert] = useIonAlert();
   const [present, dismiss] = useIonLoading();
 
@@ -36,7 +35,7 @@ function Signup() {
         },
       }
     );
-    
+
     if (error) {
       //setRMsg(error.message);
       console.log(error.message);
@@ -69,7 +68,7 @@ function Signup() {
   };
 
   return (
-    <>
+    <IonPage>
       <IonCard>
         <IonCardContent>
           <form onSubmit={Register}>
@@ -100,7 +99,7 @@ function Signup() {
           </form>
         </IonCardContent>
       </IonCard>
-    </>
+    </IonPage>
   );
 }
 

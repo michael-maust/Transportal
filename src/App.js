@@ -1,5 +1,4 @@
 import "./App.css";
-import { Outlet } from "react-router-dom";
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -19,21 +18,52 @@ import { setupIonicReact } from "@ionic/react";
 
 import "./theme/variables.css";
 import { useState } from "react";
+import { UserContext } from "./contexts/UserContext";
+
+import Signup from "./routes/Signup";
+import Login from "./routes/login";
+
+import {
+  IonApp,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonSegment,
+  IonSegmentButton,
+  IonPage,
+  IonTabs,
+  IonTabBar,
+  IonTabButton,
+  IonLabel,
+  IonRouterOutlet,
+} from "@ionic/react";
+
+import { IonReactRouter } from "@ionic/react-router";
+
+import { Route, Redirect, Routes } from "react-router-dom";
+
+import React from "react";
 
 setupIonicReact();
+
+const Settings = () => <div>Hello from Settings!</div>;
 
 function App() {
   const [user, setUser] = useState("");
   const [session, setSession] = useState("");
   return (
-    <div
-      style={{
-        margin: "0 1rem 0 1rem",
-        paddingTop: "env(safe-area-inset-top)",
-      }}
-    >
-      <h1 className="dark:text-white text-center">Transportal</h1>
-      <Outlet />
+    <div>
+      <div>Hello World</div>
+      <IonApp>
+        <IonReactRouter>
+          <IonRouterOutlet>
+            <Route path="" component={Settings} />
+            <Route path="/login" component={Login} />
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </IonApp>
     </div>
   );
 }
