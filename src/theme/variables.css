@@ -18,15 +18,22 @@
   src: url("../assets/fonts/Roboto-Medium.ttf");
 }
 
+@font-face {
+  font-family: "Roboto-Italic";
+  src: url("../assets/fonts/Roboto-Italic.ttf");
+}
+
+
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
   --ion-color-primary: #df7a5e;
-  --ion-color-primary-rgb: 56, 128, 255;
-  --ion-color-primary-contrast: #ffffff;
-  --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #d75633;
-  --ion-color-primary-tint: #d75633;
+	--ion-color-primary-rgb: 223,122,94;
+	--ion-color-primary-contrast: #ffffff;
+	--ion-color-primary-contrast-rgb: 0,0,0;
+	--ion-color-primary-shade: #c46b53;
+	--ion-color-primary-tint: #e2876e;
 
   /** secondary **/
   --ion-color-secondary: #3dc2ff;
@@ -138,4 +145,21 @@ ion-header ion-title {
   color: #c1c1c2;
   text-align: left;
   text-transform: uppercase;
+}
+
+ion-header ion-title {
+  font-family: "Roboto-Bold";
+  font-size: 1.8rem;
+  white-space: normal;
+  color: #c1c1c2;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.welcome-button {
+  max-width: 30em;
+}
+
+.welcome-title {
+  max-width: 20em;
 }
