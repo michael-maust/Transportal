@@ -1,0 +1,6 @@
+{
+	"appId": "Transportal.app",
+	"appName": "Transportal",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
