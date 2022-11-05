@@ -1,23 +1,18 @@
+// Route Imports
+import Login from "./routes/login";
+import Signup from "./routes/signup";
+import Welcome from "./routes/welcome";
+import Home from "./routes/home";
+import RouteList from "./routes/routeList";
+import RestSpots from "./routes/restSpots";
+
+import React from "react";
 import "./App.css";
-import {IonApp, IonRouterOutlet} from "react-router-dom";
 import {IonReactRouter} from "@ionic/react-router";
-import {Redirect, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 
-/* Core CSS required for Ionic components to work properly */
-import "@ionic/react/css/core.css";
+import {IonApp, IonRouterOutlet} from "@ionic/react";
 
-/* Basic CSS for apps built with Ionic */
-import "@ionic/react/css/normalize.css";
-import "@ionic/react/css/structure.css"; // Remove if nothing is visible
-import "@ionic/react/css/typography.css";
-
-/* Optional CSS utils that can be commented out */
-import "@ionic/react/css/padding.css";
-import "@ionic/react/css/float-elements.css";
-import "@ionic/react/css/text-alignment.css";
-import "@ionic/react/css/text-transformation.css";
-import "@ionic/react/css/flex-utils.css";
-import "@ionic/react/css/display.css";
 import {setupIonicReact} from "@ionic/react";
 
 import "./theme/variables.css";
@@ -34,8 +29,12 @@ function App() {
       <IonApp>
         <IonReactRouter>
           <IonRouterOutlet>
-            <Route path="/dashboard" component={DashboardPage} />
-            <Redirect exact from="/" to="/dashboard" />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/welcome" element={<Welcome />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/routes" element={<RouteList />} />
+            <Route path="/rest" element={<RestSpots />} />
           </IonRouterOutlet>
         </IonReactRouter>
       </IonApp>

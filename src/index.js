@@ -1,41 +1,29 @@
+/**
+ * Ionic React Tutorial
+ * ====================
+ * Learn how to use Ionic 4 with React.
+ * This tutorial focuses on Tab navigation and routing with React Router
+ *
+ * Video: https://youtu.be/1XA2m4bAaSA
+ * Part 1: https://codesandbox.io/s/ionic-react-tutorial-getting-started-nze4s
+ */
 import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
+import ReactDOM from "react-dom";
 import App from "./App";
-import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
 
-// Route Imports
-import Login from "./routes/login";
-import Signup from "./pages/signup";
-import Welcome from "./routes/welcome";
-import Home from "./routes/home";
-import RouteList from "./routes/routeList";
-import RestSpots from "./routes/restSpots";
+import "@ionic/react/css/core.css";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/welcome" element={<Welcome />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/routes" element={<RouteList />} />
-          <Route path="/rest" element={<RestSpots />} />
+/* Basic CSS for apps built with Ionic */
+import "@ionic/react/css/normalize.css";
+import "@ionic/react/css/structure.css";
+import "@ionic/react/css/typography.css";
 
-          <Route
-            path="*"
-            element={
-              <main style={{padding: "1rem"}}>
-                <p>There's nothing here!</p>
-                <Link to="/">Back home!</Link>
-              </main>
-            }
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>
-);
+/* Optional CSS utils that can be commented out */
+import "@ionic/react/css/padding.css";
+import "@ionic/react/css/float-elements.css";
+import "@ionic/react/css/text-alignment.css";
+import "@ionic/react/css/text-transformation.css";
+import "@ionic/react/css/flex-utils.css";
+import "@ionic/react/css/display.css";
+
+ReactDOM.render(<App />, document.getElementById("root"));

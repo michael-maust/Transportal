@@ -1,3 +1,4 @@
+import React from "react";
 import {
   IonButton,
   IonCard,
@@ -6,8 +7,6 @@ import {
   IonInput,
   IonItem,
   IonLabel,
-  useIonAlert,
-  useIonLoading,
   IonContent,
   IonTitle,
   IonToolbar,
@@ -18,31 +17,11 @@ import {
   IonFooter,
   IonMenu,
 } from "@ionic/react";
-import {useNavigate} from "react-router-dom";
 import {logIn} from "ionicons/icons";
 
 function Login() {
-  const navigate = useNavigate();
-  const [alert] = useIonAlert();
-  const [present, dismiss] = useIonLoading();
-
   const onSubmit = async (event) => {
     event.preventDefault();
-    await present({message: "Loading..."}); // TODO: Add truck animation icon for loading
-
-    // TODO: replace with proper user check
-    setTimeout(() => {
-      dismiss();
-      if (Math.random() < 0.5) {
-        alert({
-          header: "Invalid credentials",
-          message: "There is no user with that name and password.",
-          buttons: [{text: "Ok"}],
-        });
-      } else {
-        navigate("/app/dashboard");
-      }
-    }, 1500);
   };
 
   return (
