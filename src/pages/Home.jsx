@@ -1,8 +1,13 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Tab1.css';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
+import ExploreContainer from "../components/ExploreContainer";
 
-const Tab1 = () => {
+const Home = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -22,4 +27,4 @@ const Tab1 = () => {
   );
 };
 
-export default Tab1;
+export default Home;
