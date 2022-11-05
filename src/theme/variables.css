@@ -1,22 +1,22 @@
 @font-face {
   font-family: "Nunito";
-  src: url("../assets/Nunito-VariableFont_wght.ttf");
+  src: url("../assets/fonts/Nunito-VariableFont_wght.ttf");
 }
 
 @font-face {
   font-family: "Roboto";
-  src: url("../assets/Roboto-Regular.ttf");
+  src: url("../assets/fonts/Roboto-Regular.ttf");
 }
 
 @font-face {
   font-family: "Roboto-Bold";
-  src: url("../assets/Roboto-Bold.ttf");
+  src: url("../assets/fonts/Roboto-Bold.ttf");
 }
 
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #3880ff;
+  --ion-color-primary: #df7a5e;
   --ion-color-primary-rgb: 56, 128, 255;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
