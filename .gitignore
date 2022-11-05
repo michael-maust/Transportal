@@ -11,6 +11,8 @@
 # production
 /build
 
+capacitor.config.ts
+
 # misc
 .DS_Store
 .env.local
