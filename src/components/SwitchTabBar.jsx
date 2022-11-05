@@ -8,7 +8,7 @@ import {
   IonTabs,
 } from "@ionic/react";
 import {IonReactRouter} from "@ionic/react-router";
-import {home, person, settings} from "ionicons/icons";
+import {speedometer, map, bed} from "ionicons/icons";
 import RestSpots from "../pages/RestSpots";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
@@ -27,20 +27,20 @@ const SwitchTabBar = () => {
     {
       label: "Routes",
       url: "/routes",
-      icon: person,
+      icon: map,
       component: RouteList,
-    },
-    {
-      label: "Rest",
-      url: "/rest",
-      icon: home,
-      component: RestSpots,
     },
     {
       label: "Active Route",
       url: "/settings",
-      icon: settings,
+      icon: speedometer,
       component: ActiveRoute,
+    },
+    {
+      label: "Rest",
+      url: "/rest",
+      icon: bed,
+      component: RestSpots,
     },
   ];
 
