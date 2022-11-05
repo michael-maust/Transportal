@@ -7,6 +7,22 @@ const TranpsortalMap = () => {
     const map = useRef(null);
     const [start, setStart] = useState([-92.33530214594644, 38.952768540453974]);
     const [end, setEnd] = useState([-92.34723513369339, 38.922793530041496]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+
+    const handleUpdateSearch = async (event) => {
+        setSearchTerm(event.target.value);
+    }
+
+    const search = async () => {
+        const query = await fetch(
+            `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchTerm}.json?types=place%2Cpostcode%2Caddress&access_token=pk.eyJ1IjoiY2pzdHVja3kiLCJhIjoiY2xhMzlvcnhlMG94czNwbWhzN3Z3Z3V6cCJ9.FYRlIp7y4CKe7qhm66VsTQ`,
+            { method: 'GET' },
+        );
+        const json = await query.json();
+        const data = json.features.map((place) => ({ name: place.place_name, coordinates: place.geometry.coordinates }));
+        setSearchResults(data);
+    }
 
     const getRoute = async () => {
         const query = await fetch(
@@ -41,7 +57,7 @@ const TranpsortalMap = () => {
                     'line-cap': 'round'
                 },
                 paint: {
-                    'line-color': '#3887be',
+                    'line-color': '#DF7A5E',
                     'line-width': 5,
                     'line-opacity': 0.75
                 }
@@ -64,14 +80,20 @@ const TranpsortalMap = () => {
                 map.current.setZoom(1 / (3 * largestDif));
             }
         }
-    }, [start, end])
+    }, [start, end]);
+
+    useEffect(() => {
+        if (!searchTerm) return;
+        
+        search();
+    }, [searchTerm]);
 
     useEffect(() => {
         if (map.current) return;
 
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/cjstucky/cla3wv21i000215pv75npbof0',
             center: [20, 90],
             zoom: 9
         });
@@ -80,6 +102,20 @@ const TranpsortalMap = () => {
     return (
         <>
             <h1>Map</h1>
+            <input value={searchTerm} onChange={handleUpdateSearch} />
+            <ul>
+                {searchResults.map(place => {
+                    const name = place.name;
+                    const firstComma = name.indexOf(',');
+
+                    return (
+                        <li key={name}>
+                            <h5>{name.substr(0, firstComma)}</h5>
+                            <p>{name.substr(firstComma + 2, name.length)}</p>
+                        </li>
+                    )
+                })}
+            </ul>
             <div ref={mapContainer} className="map-container" />
         </>
     )
