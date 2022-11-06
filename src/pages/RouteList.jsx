@@ -19,19 +19,9 @@ import CreateRouteModal from "../components/createRouteModal";
 import { supabase } from "../supabase";
 import RouteCard from "../components/routeCard";
 
-const RouteData = [];
+const RouteData = [''];
 
-const NoRoutesFound = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [startCoords, setStartCoords] = useState([]);
-  const [destinationCoords, setDestinationCoords] = useState([]);
-
-  const persistRoute = (start, destination) => {
-    setStartCoords(start);
-    setDestinationCoords(destination);
-    setIsOpen(false);
-  };
-
+const NoRoutesFound = ({setIsOpen, isOpen, persistRoute}) => {
   return (
     <ion-content
       class="ion-padding"
@@ -106,6 +96,9 @@ const NoRoutesFound = () => {
 
 const RouteList = () => {
   const [allRoutes, setAllRoutes] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [startCoords, setStartCoords] = useState([]);
+  const [destinationCoords, setDestinationCoords] = useState([]);
 
   const getAllRoutes = async () => {
     let { data: Routes, error } = await supabase.from("Routes").select("*");
@@ -118,11 +111,18 @@ const RouteList = () => {
   }, []);
 
   console.log(allRoutes);
+
+  const persistRoute = (start, destination) => {
+    setStartCoords(start);
+    setDestinationCoords(destination);
+    setIsOpen(false);
+  };
+
   return (
     <IonPage>
       <IonHeader class="ion-no-border">
         <IonToolbar>
-          <IonTitle>Available Routes</IonTitle>
+          <IonTitle style={{display: 'inline-block'}}>Available Routes</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -144,6 +144,20 @@ const RouteList = () => {
         ) : (
           <NoRoutesFound />
         )}
+        <div style={{display: 'flex'}}>
+          <IonButton
+            onClick={() => setIsOpen((currentValue) => !currentValue)}
+            color="primary"
+            style={{
+              width: "200px",
+              position: "relative",
+              margin: 'auto'
+            }}
+            id="open-modal"
+          >
+            Add Route
+          </IonButton>
+        </div>
       </IonContent>
     </IonPage>
   );

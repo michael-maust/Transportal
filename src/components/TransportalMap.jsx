@@ -34,8 +34,8 @@ const TranpsortalMap = ({
   const [startSearchOpen, setStartSearchOpen] = useState(false);
   const destinationSearchModal = useRef(null);
   const [destinationSearchOpen, setDestinationSearchOpen] = useState(false);
-  const [start, setStart] = useState(startCoords ?? null);
-  const [destination, setDestination] = useState(destinationCoords ?? null);
+  const [start, setStart] = useState(null);
+  const [destination, setDestination] = useState(null);
   const [startName, setStartName] = useState("");
   const [destinationName, setDestinationName] = useState("");
   const [searchResultsForStart, setSearchResultsForStart] = useState([]);
@@ -162,10 +162,8 @@ const TranpsortalMap = ({
 
       onWillDismissDestinationSearch();
     }
-
-    setTimeout(function () {
-      addLayer();
-    }, 0);
+    
+    addLayer();
   };
 
   const search = async (searchTerm, destinationSearch) => {
@@ -226,9 +224,7 @@ const TranpsortalMap = ({
       }
     }
 
-    setTimeout(function () {
-      addLayerTwo();
-    }, 100);
+    addLayerTwo();
   };
 
   const getZoomLevelForGeojsonArea = (lat_min, lat_max, lng_min, lng_max) => {
@@ -310,7 +306,14 @@ const TranpsortalMap = ({
       center: [20, 90],
       zoom: 9,
     });
-  });
+
+    if (startCoords && destinationCoords) {
+      map.current.on('styledata', function() {
+        setStart(startCoords);
+        setDestination(destinationCoords);
+      });
+    }
+  }, [startCoords, destinationCoords]);
 
   if (!onlyShowMap) {
     return (
