@@ -28,7 +28,7 @@ const NoRoutesFound = () => {
     setStartCoords(start);
     setDestinationCoords(destination);
     setIsOpen(false);
-  }
+  };
 
   return (
     <ion-content
@@ -91,7 +91,10 @@ const NoRoutesFound = () => {
           }}
         >
           <IonContent className="ion-padding" style={{height: "400px"}}>
-            <CreateRouteModal onDismiss={() => setIsOpen(false)} persistRoute={persistRoute} />
+            <CreateRouteModal
+              onDismiss={() => setIsOpen(false)}
+              persistRoute={persistRoute}
+            />
           </IonContent>
         </IonModal>
       </div>

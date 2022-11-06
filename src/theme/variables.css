@@ -42,12 +42,12 @@
   --ion-color-secondary-tint: #50c8ff;
 
   /** tertiary **/
-  --ion-color-tertiary: #5260ff;
+  --ion-color-tertiary: #84a98c;
   --ion-color-tertiary-rgb: 82, 96, 255;
   --ion-color-tertiary-contrast: #ffffff;
   --ion-color-tertiary-contrast-rgb: 255, 255, 255;
-  --ion-color-tertiary-shade: #4854e0;
-  --ion-color-tertiary-tint: #6370ff;
+  --ion-color-tertiary-shade: #84a98c;
+  --ion-color-tertiary-tint: #84a98c;
 
   /** success **/
   --ion-color-success: #2dd36f;
@@ -165,7 +165,6 @@ ion-header ion-title {
 ion-card {
   --background: #3d3d3e;
   border-radius: 16px;
-  max-width: 400px;
 }
 
 start-button,
