@@ -10,8 +10,7 @@ import {
   IonLabel,
   IonIcon,
 } from "@ionic/react";
-import ExploreContainer from "../components/ExploreContainer";
-import supabase from "../supabase";
+import { supabase } from "../supabase";
 import { useState } from "react";
 import { logIn } from "ionicons/icons";
 

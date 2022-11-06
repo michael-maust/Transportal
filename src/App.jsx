@@ -22,12 +22,20 @@ import "./index.css";
 import "./theme/variables.css";
 import "./theme/global.css";
 import SwitchTabBar from "./components/SwitchTabBar";
+import { createContext, useState } from "react";
+import { AuthProvider } from "./contexts/Auth";
 
 const App = () => {
+  const [user, setUser] = useState();
+  const [test, setTest] = useState();
+  console.log("test");
+  console.log(test);
   return (
-    <IonApp>
-      <SwitchTabBar />
-    </IonApp>
+    <AuthProvider>
+      <IonApp>
+        <SwitchTabBar setUser={setUser} setTest={setTest} />
+      </IonApp>
+    </AuthProvider>
   );
 };
 
