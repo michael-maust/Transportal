@@ -4,10 +4,78 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  IonButton,
+  IonItem,
+  IonInput,
+  IonLabel,
+  IonIcon,
 } from "@ionic/react";
-import ExploreContainer from "../components/ExploreContainer";
+import { supabase } from "../supabase";
+import { useState } from "react";
+import { logIn } from "ionicons/icons";
+import { useAuth } from "../contexts/Auth";
+import { useHistory } from "react-router-dom";
 
 const SignUp = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { signIn, signUp } = useAuth();
+  const navigate = useHistory();
+
+  async function register(e) {
+    e.preventDefault();
+
+    const userEmail = email;
+    const userPassword = password;
+
+    const { data, error } = await signUp({ userEmail, userPassword });
+
+    if (error) {
+      alert("error signing in");
+      console.log(error.message);
+    } else {
+      // Redirect user to Dashboard
+      console.log("success");
+      const { error } = await signIn({ userEmail, userPassword });
+      navigate.push("/welcome");
+    }
+  }
+
+  //   const register = async () => {
+  //     const { data, error } = await signUp({
+  //       email,
+  //       password,
+  //     });
+  //     console.log("done");
+  //     if (error) {
+  //       console.log("error");
+  //       console.log(error.message);
+  //     } else {
+  //       console.log("success");
+  //       console.log(data.user);
+  //     }
+  //   };
+  //   const testSubmit = async () => {
+  //     console.log(supabase);
+  //     console.log(supabase.auth);
+  //     console.log(supabase.auth.signUp);
+  //     const { data, error } = await supabase.auth.signUp({
+  //       email: "lukedev33@email.com",
+  //       password: "example-password512",
+  //     });
+
+  //     if (error) {
+  //       //setRMsg(error.message);
+  //       console.log("error");
+  //       console.log(error.message);
+  //     } else {
+  //       //setRMsg("User create successfully");
+  //       //setUser(data.user);
+  //       console.log("Success!");
+  //     }
+  //   };
+
   return (
     <IonPage>
       <IonHeader class="ion-no-border">
@@ -16,12 +84,33 @@ const SignUp = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+        <form onSubmit={register}>
+          <IonItem>
+            <IonLabel>Email</IonLabel>
+            <IonInput
+              type="email"
+              onIonChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+            ></IonInput>
+          </IonItem>
+          <IonItem>
+            <IonLabel>Password</IonLabel>
+            <IonInput
+              type="password"
+              onIonChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+            ></IonInput>
+          </IonItem>
+          <IonButton expand="full" type="submit" color="secondary">
+            <IonIcon icon={logIn} slot="start" />
+            Sign Up
+          </IonButton>
+        </form>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">SignUp</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="SignUp page" />
       </IonContent>
     </IonPage>
   );
