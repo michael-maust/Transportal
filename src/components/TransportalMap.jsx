@@ -17,7 +17,9 @@ import "./TransportalMap.css";
 
 const TranpsortalMap = ({
   startCoords,
+
   destinationCoords,
+
   onlyShowMap = false,
 }) => {
   mapboxgl.accessToken =
