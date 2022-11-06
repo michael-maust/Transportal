@@ -18,7 +18,7 @@ import routePlaceholder from "../assets/pictures/routePlaceholder";
 import CreateRouteModal from "../components/createRouteModal";
 import RouteCard from "../components/routeCard";
 
-const RouteData = [""];
+const RouteData = [];
 
 const NoRoutesFound = () => {
   const [isOpen, setIsOpen] = useState(false);
