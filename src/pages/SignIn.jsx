@@ -16,6 +16,7 @@ import { logIn } from "ionicons/icons";
 import { supabase } from "../supabase";
 import { useAuth } from "../contexts/Auth";
 import { useHistory } from "react-router-dom";
+import logo from "../assets/pictures/logo";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -47,12 +48,25 @@ const SignIn = () => {
 
   return (
     <IonPage>
-      <IonHeader >
-        <IonToolbar>
-          <IonTitle>Sign In</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
+      <ion-content
+      class="ion-padding"
+      style={{overflow: "hidden"}}
+      fullscreen={true}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+          gap: "8px",
+          width: "full",
+          height: "100%",
+          position: "relative",
+        }}
+      >
+        {logo}
+        
         <form onSubmit={handleSubmit}>
           <IonItem>
             <IonLabel>Email</IonLabel>
@@ -81,7 +95,8 @@ const SignIn = () => {
           </IonToolbar>
         </IonHeader>
         <ExploreContainer name="Sign In page" />
-      </IonContent>
+        </div>
+      </ion-content>
     </IonPage>
   );
 };
