@@ -147,20 +147,6 @@ const RouteList = () => {
           ))
         )}
         <NoRoutesFound isOpen={isOpen} setIsOpen={setIsOpen} persistRoute={persistRoute} noData={RouteData.length === 0} />
-        <div style={{display: 'flex'}}>
-          <IonButton
-            onClick={() => setIsOpen(true)}
-            color="primary"
-            style={{
-              width: "200px",
-              position: "relative",
-              margin: 'auto'
-            }}
-            id="open-modal"
-          >
-            Add Route
-          </IonButton>
-        </div>
       </IonContent>
     </IonPage>
   );

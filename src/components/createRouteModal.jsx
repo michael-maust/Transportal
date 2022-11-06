@@ -11,6 +11,7 @@ function CreateRouteModal(props) {
 
   const createRoute = async () => {
     props.onDismiss();
+    props.persistRoute();
 
     console.log("USER");
     console.log(start);
