@@ -1,4 +1,4 @@
-import { IonApp } from "@ionic/react";
+import {IonApp} from "@ionic/react";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -22,9 +22,10 @@ import "./index.css";
 import "./theme/variables.css";
 import "./theme/global.css";
 import SwitchTabBar from "./components/SwitchTabBar";
-import { createContext, useState } from "react";
-import { AuthProvider } from "./contexts/Auth";
+import {createContext, useState} from "react";
+import {AuthProvider} from "./contexts/Auth";
 
+// TODO: updating routing as such: https://stackoverflow.com/questions/62359500/hide-tabs-on-login-screen-in-ionic-react
 
 const App = () => {
   const [user, setUser] = useState();
