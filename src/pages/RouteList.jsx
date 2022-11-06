@@ -20,17 +20,7 @@ import RouteCard from "../components/routeCard";
 
 const RouteData = [];
 
-const NoRoutesFound = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [startCoords, setStartCoords] = useState([]);
-  const [destinationCoords, setDestinationCoords] = useState([]);
-
-  const persistRoute = (start, destination) => {
-    setStartCoords(start);
-    setDestinationCoords(destination);
-    setIsOpen(false);
-  };
-
+const NoRoutesFound = ({setIsOpen, isOpen, persistRoute}) => {
   return (
     <ion-content
       class="ion-padding"
@@ -104,11 +94,29 @@ const NoRoutesFound = () => {
 };
 
 const RouteList = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [startCoords, setStartCoords] = useState([]);
+  const [destinationCoords, setDestinationCoords] = useState([]);
+
+  const persistRoute = (start, destination) => {
+    setStartCoords(start);
+    setDestinationCoords(destination);
+    setIsOpen(false);
+  };
+
   return (
     <IonPage>
       <IonHeader class="ion-no-border">
         <IonToolbar>
-          <IonTitle>Available Routes</IonTitle>
+          <IonTitle style={{display: 'inline-block'}}>Available Routes</IonTitle>
+          <IonButton
+            onClick={() => setIsOpen((currentValue) => !currentValue)}
+            color="primary"
+            style={{display: 'inline-block', float: 'right', 'margin-right': '20px '}}
+            id="open-modal"
+          >
+            Add Route
+          </IonButton>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -117,7 +125,7 @@ const RouteList = () => {
             <IonTitle size="large">Available Routes</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {RouteData.length === 0 && <NoRoutesFound />}
+        {RouteData.length === 0 && <NoRoutesFound setIsOpen={setIsOpen} isOpen={isOpen} persistRoute={persistRoute} />}
 
         <RouteCard
           originCity="Kansas City"
