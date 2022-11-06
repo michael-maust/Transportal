@@ -24,6 +24,7 @@ import "./index.css";
 import "./theme/variables.css";
 import "./theme/global.css";
 import SwitchTabBar from "./components/SwitchTabBar";
+import { useState } from "react";
 
 const App = () => {
   return (

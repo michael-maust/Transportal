@@ -20,6 +20,10 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Please allow Transportal to always use your location in order to provide you the best services for your trip.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Please allow Transportal to use your location in order to provide you the best services for your trip.</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
