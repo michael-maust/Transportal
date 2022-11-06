@@ -19,7 +19,7 @@ import CreateRouteModal from "../components/createRouteModal";
 import { supabase } from "../supabase";
 import RouteCard from "../components/routeCard";
 
-const RouteData = [""];
+const RouteData = [];
 
 const NoRoutesFound = () => {
   const [isOpen, setIsOpen] = useState(false);
