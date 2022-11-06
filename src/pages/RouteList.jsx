@@ -17,9 +17,9 @@ import {
 import routePlaceholder from "../assets/pictures/routePlaceholder";
 import CreateRouteModal from "../components/createRouteModal";
 import { supabase } from "../supabase";
-import RestSpotCard from "../components/restSpotCard";
+import RouteCard from "../components/routeCard";
 
-const RouteData = [];
+const RouteData = [""];
 
 const NoRoutesFound = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -133,7 +133,13 @@ const RouteList = () => {
         </IonHeader>
         {allRoutes ? (
           allRoutes.map((route) => (
-            <RestSpotCard title={route.isActive}></RestSpotCard>
+            <RouteCard
+              originCity="Kansas City"
+              DestinationCity="Springfield"
+              hours={"12 - 17"}
+              miles={831}
+              destinationAddress="2075 Princeton Ave, College Park, GA 30337"
+            ></RouteCard>
           ))
         ) : (
           <NoRoutesFound />
