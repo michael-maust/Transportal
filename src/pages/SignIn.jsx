@@ -15,12 +15,14 @@ import { useEffect, useState } from "react";
 import { logIn } from "ionicons/icons";
 import { supabase } from "../supabase";
 import { useAuth } from "../contexts/Auth";
+import { useHistory } from "react-router-dom";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user2, setUser2] = useState("");
   const [session2, setSession2] = useState("");
+  const navigate = useHistory();
 
   const { signIn } = useAuth();
 
@@ -38,6 +40,8 @@ const SignIn = () => {
     } else {
       // Redirect user to Dashboard
       console.log("success");
+      
+      navigate.push("/routes");
     }
   }
 

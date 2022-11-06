@@ -18,6 +18,7 @@ import ActiveRoute from "../pages/ActiveRoute";
 import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { Redirect, Route } from "react-router";
+import { PrivateRoute } from "./PrivateRoute";
 
 const SwitchTabBar = () => {
   const [activeTab, setActiveTab] = useState("tab0");
@@ -92,9 +93,7 @@ const SwitchTabBar = () => {
             );
           })}
 
-          <Route exact path="/">
-            <Redirect to="/routes" />
-          </Route>
+          <PrivateRoute component={RouteList} exact path="/" />
 
           <Route exact path="/signin">
             <SignIn />

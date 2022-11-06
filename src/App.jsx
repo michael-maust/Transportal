@@ -25,6 +25,7 @@ import SwitchTabBar from "./components/SwitchTabBar";
 import { createContext, useState } from "react";
 import { AuthProvider } from "./contexts/Auth";
 
+
 const App = () => {
   const [user, setUser] = useState();
   const [test, setTest] = useState();

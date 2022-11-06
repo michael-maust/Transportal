@@ -13,24 +13,49 @@ import {
 import { supabase } from "../supabase";
 import { useState } from "react";
 import { logIn } from "ionicons/icons";
+import { useAuth } from "../contexts/Auth";
+import { useHistory } from "react-router-dom";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const register = async () => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
+  const { signIn, signUp } = useAuth();
+  const navigate = useHistory();
+
+  async function register(e) {
+    e.preventDefault();
+
+    const userEmail = email;
+    const userPassword = password;
+
+    const { data, error } = await signUp({ userEmail, userPassword });
+
     if (error) {
-      console.log("error");
+      alert("error signing in");
       console.log(error.message);
     } else {
+      // Redirect user to Dashboard
       console.log("success");
-      console.log(data.user);
+      const { error } = await signIn({ userEmail, userPassword });
+      navigate.push("/welcome");
     }
-  };
+  }
+
+  //   const register = async () => {
+  //     const { data, error } = await signUp({
+  //       email,
+  //       password,
+  //     });
+  //     console.log("done");
+  //     if (error) {
+  //       console.log("error");
+  //       console.log(error.message);
+  //     } else {
+  //       console.log("success");
+  //       console.log(data.user);
+  //     }
+  //   };
   //   const testSubmit = async () => {
   //     console.log(supabase);
   //     console.log(supabase.auth);
