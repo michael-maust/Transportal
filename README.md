@@ -24,3 +24,11 @@ How to build a native mobile application that is cross platform. Also, utilizati
 
 ## What's next for Transportal
 Adding more features for the user, such as data of locations along the route and allowing map interaction. Also, the addition of more styling to provide uniformity.
+
+# Start Up Instructions 
+1. Download XCode, CoCoPods, and Brew. 
+2. Clone Repo
+3. From the root directory, run `npm install`
+4. After dependencies are installed Run `npm run build`
+5. Run `npx cap sync` to synchronize the your changes to the native iOS & Android SDKs
+6. Run `npx cap open ios` & `npx cap open android` to run the simulator for iOS & Android
