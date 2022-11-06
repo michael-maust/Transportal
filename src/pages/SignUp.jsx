@@ -70,7 +70,7 @@ const SignUp = () => {
               fontWeight: "400",
             }}
           >
-            Sign in to continue
+            Sign up to continue
           </h1>
         </IonHeader>
 
@@ -134,12 +134,17 @@ const SignUp = () => {
           >
             <IonButton
               expand="full"
-              style={{maxWidth: "400px", width: "90vw", borderRadius: "12px"}}
+              style={{
+                maxWidth: "400px",
+                width: "90vw",
+                borderRadius: "8px",
+                overflow: "hidden",
+              }}
               type="submit"
               color="primary"
             >
               <IonIcon icon={logIn} slot="start" />
-              Sign In
+              Sign Up
             </IonButton>
           </div>
 
@@ -159,13 +164,13 @@ const SignUp = () => {
                 marginBottom: "0",
               }}
             >
-              Don't have an account?
+              Already have an account?
             </p>
             <IonButton
               type="button"
               color="tertiary"
               buttonType=""
-              routerLink="/signup"
+              routerLink="/signin"
               class="ion-color ion-color-primary md button  ion-activatable ion-focusable hydrated ion-activated"
               style={{
                 width: "200px",
@@ -176,7 +181,7 @@ const SignUp = () => {
                 color: "#df7a5e",
               }}
             >
-              Sign Up
+              Sign In
             </IonButton>
           </div>
         </form>
@@ -185,7 +190,7 @@ const SignUp = () => {
   );
 };
 
-export default SignUp2;
+export default SignUp;
 
 function SignUp2() {
   return (
