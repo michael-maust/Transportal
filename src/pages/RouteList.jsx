@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {
   IonContent,
   IonHeader,
@@ -14,6 +14,12 @@ import {
   IonImg,
   IonSearchbar,
 } from "@ionic/react";
+import { Geolocation } from "@capacitor/geolocation";
+
+// const getCurrentLocation = async () => {
+//   const coordinates = await Geolocation.getCurrentPosition();
+//   console.log('Current position: ', coordinates);
+// }
 import routePlaceholder from "../assets/pictures/routePlaceholder";
 import CreateRouteModal from "../components/createRouteModal";
 
@@ -93,6 +99,17 @@ const NoRoutesFound = () => {
 };
 
 const RouteList = () => {
+  const [lat, setLat] = useState('');
+  const [lng, setLng] = useState('');
+
+  Geolocation.watchPosition({}, (data, error) => {
+    console.log(data)
+    if (data) {
+      setLat(data.coords.latitude);
+      setLng(data.coords.longitude);
+    }
+  });
+
   return (
     <IonPage>
       <IonHeader class="ion-no-border">
@@ -106,6 +123,8 @@ const RouteList = () => {
             <IonTitle size="large">Available Routes</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <p>Lat: {lat}</p>
+        <p>Lng: {lng}</p>
         {RouteData.length === 0 && <NoRoutesFound />}
       </IonContent>
     </IonPage>
