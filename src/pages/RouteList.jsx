@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {
   IonContent,
   IonHeader,
@@ -15,7 +15,6 @@ import {
   IonSearchbar,
 } from "@ionic/react";
 import { Geolocation } from "@capacitor/geolocation";
-import { useState } from "react";
 
 // const getCurrentLocation = async () => {
 //   const coordinates = await Geolocation.getCurrentPosition();
@@ -105,8 +104,10 @@ const RouteList = () => {
 
   Geolocation.watchPosition({}, (data, error) => {
     console.log(data)
-    setLat(data.coords.latitude);
-    setLng(data.coords.longitude);
+    if (data) {
+      setLat(data.coords.latitude);
+      setLng(data.coords.longitude);
+    }
   });
 
   return (
