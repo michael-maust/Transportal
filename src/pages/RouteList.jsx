@@ -131,14 +131,14 @@ const RouteList = () => {
             <IonTitle size="large">Available Routes</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {allRoutes ? (
+        {allRoutes.length > 0 ? (
           allRoutes.map((route) => (
             <RouteCard
-              originCity="Kansas City"
-              DestinationCity="Springfield"
+              originCity={route.origin_address}
+              DestinationCity={route.destination_address}
               hours={"12 - 17"}
               miles={831}
-              destinationAddress="2075 Princeton Ave, College Park, GA 30337"
+              destinationAddress={route.destination_address}
             ></RouteCard>
           ))
         ) : (
