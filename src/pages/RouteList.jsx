@@ -97,8 +97,7 @@ const NoRoutesFound = ({setIsOpen, isOpen, persistRoute}) => {
 const RouteList = () => {
   const [allRoutes, setAllRoutes] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [startCoords, setStartCoords] = useState([]);
-  const [destinationCoords, setDestinationCoords] = useState([]);
+  const [addedNewRoute, setAddedNewRoute] = useState(false);
 
   const getAllRoutes = async () => {
     let { data: Routes, error } = await supabase.from("Routes").select("*");
@@ -107,14 +106,13 @@ const RouteList = () => {
   };
 
   useEffect(() => {
+    setAddedNewRoute(false);
     getAllRoutes();
-  }, []);
+  }, [addedNewRoute]);
 
-  console.log(allRoutes);
-
-  const persistRoute = (start, destination) => {
-    setStartCoords(start);
-    setDestinationCoords(destination);
+  const persistRoute = () => {
+    console.log('In persist route')
+    setAddedNewRoute(true);
     setIsOpen(false);
   };
 
@@ -142,11 +140,11 @@ const RouteList = () => {
             ></RouteCard>
           ))
         ) : (
-          <NoRoutesFound />
+          <NoRoutesFound isOpen={isOpen} setIsOpen={setIsOpen} persistRoute={persistRoute} />
         )}
         <div style={{display: 'flex'}}>
           <IonButton
-            onClick={() => setIsOpen((currentValue) => !currentValue)}
+            onClick={() => setIsOpen(true)}
             color="primary"
             style={{
               width: "200px",
