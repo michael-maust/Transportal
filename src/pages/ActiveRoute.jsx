@@ -69,16 +69,22 @@ const ActiveRoute = () => {
             </div>
           </div>
 
-          <ActiveRouteCard
-            map={
-              <TranpsortalMap
-                startCoords={[-106.4410954, 31.7867031]}
-                destinationCoords={[-73.9866, 40.7306]}
-                onlyShowMap={true}
-              />
-            }
-            destinationAddress="2075 Princeton Ave, College Park, GA 30337"
-          />
+          <div style={{marginBottom: "50px"}}>
+            {/* TODO: connect to database to fetch active route */}
+            <ActiveRouteCard
+              miles={805}
+              hours={12}
+              ratePerMile={0.65}
+              map={
+                <TranpsortalMap
+                  startCoords={[-84.390264, 33.748992]}
+                  destinationCoords={[-94.578142, 39.100105]}
+                  onlyShowMap={true}
+                />
+              }
+              destinationAddress="2075 Princeton Ave, College Park, GA 30337"
+            />
+          </div>
         </div>
       </IonContent>
     </IonPage>

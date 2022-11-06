@@ -11,11 +11,12 @@ import {
   IonIcon,
 } from "@ionic/react";
 import ExploreContainer from "../components/ExploreContainer";
-import { useEffect, useState } from "react";
-import { logIn } from "ionicons/icons";
-import { supabase } from "../supabase";
-import { useAuth } from "../contexts/Auth";
-import { useHistory } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {logIn} from "ionicons/icons";
+import {supabase} from "../supabase";
+import {useAuth} from "../contexts/Auth";
+import {useHistory} from "react-router-dom";
+import logo from "../assets/pictures/logo";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +25,7 @@ const SignIn = () => {
   const [session2, setSession2] = useState("");
   const navigate = useHistory();
 
-  const { signIn } = useAuth();
+  const {signIn} = useAuth();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -32,7 +33,7 @@ const SignIn = () => {
     const userEmail = email;
     const userPassword = password;
 
-    const { error } = await signIn({ userEmail, userPassword });
+    const {error} = await signIn({userEmail, userPassword});
 
     if (error) {
       alert("error signing in");
@@ -40,47 +41,148 @@ const SignIn = () => {
     } else {
       // Redirect user to Dashboard
       console.log("success");
-      
+
       navigate.push("/routes");
     }
   }
 
   return (
     <IonPage>
-      <IonHeader >
-        <IonToolbar>
-          <IonTitle>Sign In</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
+      <IonContent>
+        <div style={{marginLeft: "20px", marginRight: "20px"}}></div>
+        <IonHeader
+          class="ion-no-border"
+          style={{marginLeft: "20px", borderColor: "transparent"}}
+        >
+          {logo}
+          <h4
+            style={{
+              color: "#DF7A5E",
+              marginTop: "-12px",
+              fontFamily: "Roboto",
+              fontSize: "24px",
+            }}
+          >
+            DRIVE WITH CLARITY
+          </h4>
+          <h1
+            style={{
+              fontSize: "32px",
+              marginTop: "40px",
+              fontFamily: "Roboto",
+              fontWeight: "400",
+            }}
+          >
+            Sign in to continue
+          </h1>
+        </IonHeader>
+
         <form onSubmit={handleSubmit}>
           <IonItem>
-            <IonLabel>Email</IonLabel>
-            <IonInput
-              type="email"
-              onIonChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-            ></IonInput>
+            <div
+              style={{
+                background: "#3d3d3e",
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                padding: "6px 12px",
+                borderRadius: "12px",
+                marginTop: "24px",
+                marginBottom: "24px",
+              }}
+            >
+              <IonLabel style={{marginRight: "6px"}}>Email</IonLabel>
+              <IonInput
+                class="ion-no-border"
+                type="email"
+                onIonChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                style={{border: "none"}}
+              ></IonInput>
+            </div>
           </IonItem>
-          <IonItem>
-            <IonLabel>Password</IonLabel>
-            <IonInput
-              type="password"
-              onIonChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter your password"
-            ></IonInput>
+          <IonItem style={{background: "red"}}>
+            <div
+              style={{
+                background: "#3d3d3e",
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                padding: "6px 12px",
+                borderRadius: "12px",
+                marginTop: "24px",
+                marginBottom: "24px",
+              }}
+            >
+              <IonLabel style={{background: "transparent", marginRight: "6px"}}>
+                Password
+              </IonLabel>
+              <IonInput
+                style={{background: "transparent"}}
+                type="password"
+                onIonChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+              ></IonInput>
+            </div>
           </IonItem>
-          <IonButton expand="full" type="submit" color="secondary">
-            <IonIcon icon={logIn} slot="start" />
-            Sign In
-          </IonButton>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: " center",
+              marginTop: "24px",
+              marinRight: "auto",
+              marginLeft: "auto",
+              width: "100%",
+            }}
+          >
+            <IonButton
+              expand="full"
+              style={{maxWidth: "400px", width: "90vw", borderRadius: "12px"}}
+              type="submit"
+              color="primary"
+            >
+              <IonIcon icon={logIn} slot="start" />
+              Sign In
+            </IonButton>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              marginTop: "30px",
+              flexDirection: "column",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "Roboto-Bold",
+                fontSize: "20px",
+                marginBottom: "0",
+              }}
+            >
+              Don't have an account?
+            </p>
+            <IonButton
+              type="button"
+              color="tertiary"
+              buttonType=""
+              routerLink="/signup"
+              class="ion-color ion-color-primary md button  ion-activatable ion-focusable hydrated ion-activated"
+              style={{
+                width: "200px",
+                position: "relative",
+                fontWeight: "bold",
+                background: "transparent !important",
+                textDecoration: "underline",
+                color: "#df7a5e",
+              }}
+            >
+              Sign Up
+            </IonButton>
+          </div>
         </form>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Sign In</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Sign In page" />
       </IonContent>
     </IonPage>
   );

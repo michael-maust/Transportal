@@ -45,8 +45,6 @@ const TranpsortalMap = ({
 
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log({ start, destination });
-
   let hasLocations = start && destination;
 
   const onWillDismissStartSearch = () => {
@@ -162,7 +160,7 @@ const TranpsortalMap = ({
 
       onWillDismissDestinationSearch();
     }
-    
+
     addLayer();
   };
 
@@ -308,7 +306,7 @@ const TranpsortalMap = ({
     });
 
     if (startCoords && destinationCoords) {
-      map.current.on('styledata', function() {
+      map.current.on("styledata", function () {
         setStart(startCoords);
         setDestination(destinationCoords);
       });

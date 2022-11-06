@@ -19,9 +19,9 @@ import CreateRouteModal from "../components/createRouteModal";
 import { supabase } from "../supabase";
 import RouteCard from "../components/routeCard";
 
-const RouteData = [''];
+const RouteData = [""];
 
-const NoRoutesFound = ({setIsOpen, isOpen, persistRoute}) => {
+const NoRoutesFound = ({setIsOpen, isOpen, persistRoute, noData}) => {
   return (
     <ion-content
       class="ion-padding"
@@ -40,19 +40,23 @@ const NoRoutesFound = ({setIsOpen, isOpen, persistRoute}) => {
           position: "relative",
         }}
       >
-        {routePlaceholder}
-        <p
-          style={{
-            maxWidth: "400px",
-            textAlign: "center",
-            fontFamily: "Roboto-Medium",
-            fontSize: "32px",
-            padding: 0,
-            margin: "12px",
-          }}
-        >
-          No Routes Found
-        </p>
+        {noData && (
+          <>
+            {routePlaceholder}
+            <p
+              style={{
+                maxWidth: "400px",
+                textAlign: "center",
+                fontFamily: "Roboto-Medium",
+                fontSize: "32px",
+                padding: 0,
+                margin: "12px",
+              }}
+            >
+              No Routes Found
+            </p>
+          </>
+        )}
 
         <IonButton
           onClick={() => setIsOpen((currentValue) => !currentValue)}
@@ -120,7 +124,9 @@ const RouteList = () => {
     <IonPage>
       <IonHeader class="ion-no-border">
         <IonToolbar>
-          <IonTitle style={{display: 'inline-block'}}>Available Routes</IonTitle>
+          <IonTitle style={{display: "inline-block"}}>
+            Available Routes
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -129,7 +135,7 @@ const RouteList = () => {
             <IonTitle size="large">Available Routes</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {allRoutes.length > 0 ? (
+        {allRoutes.length > 0 && (
           allRoutes.map((route) => (
             <RouteCard
               originCity={route.origin_address}
@@ -139,9 +145,8 @@ const RouteList = () => {
               destinationAddress={route.destination_address}
             ></RouteCard>
           ))
-        ) : (
-          <NoRoutesFound isOpen={isOpen} setIsOpen={setIsOpen} persistRoute={persistRoute} />
         )}
+        <NoRoutesFound isOpen={isOpen} setIsOpen={setIsOpen} persistRoute={persistRoute} noData={RouteData.length === 0} />
         <div style={{display: 'flex'}}>
           <IonButton
             onClick={() => setIsOpen(true)}

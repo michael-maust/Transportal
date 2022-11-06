@@ -116,6 +116,7 @@ const Welcome = () => {
             expand="block"
             className="welcome-button"
             color="primary"
+            routerLink="/routes"
             style={{
               fontWeight: "bold",
               marginLeft: "30px",

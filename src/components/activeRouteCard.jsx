@@ -111,7 +111,7 @@ function ActiveRouteCard({
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "USD",
-              }).format(miles * ratePerMile)}
+              }).format(miles ?? 0 * ratePerMile ?? 0)}
             </span>
           </div>
         </IonCardSubtitle>
