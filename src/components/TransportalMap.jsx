@@ -22,7 +22,9 @@ const TranpsortalMap = ({
 
   onlyShowMap = false,
 
-  props,
+  start2,
+
+  end,
 }) => {
   mapboxgl.accessToken =
     "pk.eyJ1IjoiY2pzdHVja3kiLCJhIjoiY2xhMzlvcnhlMG94czNwbWhzN3Z3Z3V6cCJ9.FYRlIp7y4CKe7qhm66VsTQ";
@@ -56,7 +58,8 @@ const TranpsortalMap = ({
   };
 
   const handleSelectStart = (selectedResult) => {
-    props.start(selectedResult);
+    console.log(start2);
+    start2(selectedResult);
     const { name, coordinates: coords } = selectedResult;
     setStart(coords);
     setStartName(name);
@@ -108,7 +111,7 @@ const TranpsortalMap = ({
   };
 
   const handleSelectDestination = (selectedResult) => {
-    props.end(selectedResult);
+    end(selectedResult);
     const { name, coordinates: coords } = selectedResult;
     setDestination(coords);
     setDestinationName(name);

@@ -13,7 +13,6 @@ function CreateRouteModal(props) {
     props.onDismiss();
 
     console.log("USER");
-    console.log(user.id);
     console.log(start);
     const { data, error } = await supabase.from("Routes").insert([
       {
@@ -41,7 +40,7 @@ function CreateRouteModal(props) {
       >
         <TranpsortalMap
           persistRoute={props.persistRoute}
-          start={setStart}
+          start2={setStart}
           end={setEnd}
         />
 
