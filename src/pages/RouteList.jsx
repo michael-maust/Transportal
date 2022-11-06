@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   IonContent,
   IonHeader,
@@ -16,6 +16,8 @@ import {
 } from "@ionic/react";
 import routePlaceholder from "../assets/pictures/routePlaceholder";
 import CreateRouteModal from "../components/createRouteModal";
+import { supabase } from "../supabase";
+import RestSpotCard from "../components/restSpotCard";
 
 const RouteData = [];
 
@@ -28,12 +30,12 @@ const NoRoutesFound = () => {
     setStartCoords(start);
     setDestinationCoords(destination);
     setIsOpen(false);
-  }
+  };
 
   return (
     <ion-content
       class="ion-padding"
-      style={{overflow: "hidden"}}
+      style={{ overflow: "hidden" }}
       fullscreen={true}
     >
       <div
@@ -90,8 +92,11 @@ const NoRoutesFound = () => {
             paddingTop: "100px",
           }}
         >
-          <IonContent className="ion-padding" style={{height: "400px"}}>
-            <CreateRouteModal onDismiss={() => setIsOpen(false)} persistRoute={persistRoute} />
+          <IonContent className="ion-padding" style={{ height: "400px" }}>
+            <CreateRouteModal
+              onDismiss={() => setIsOpen(false)}
+              persistRoute={persistRoute}
+            />
           </IonContent>
         </IonModal>
       </div>
@@ -100,6 +105,19 @@ const NoRoutesFound = () => {
 };
 
 const RouteList = () => {
+  const [allRoutes, setAllRoutes] = useState([]);
+
+  const getAllRoutes = async () => {
+    let { data: Routes, error } = await supabase.from("Routes").select("*");
+
+    setAllRoutes(Routes);
+  };
+
+  useEffect(() => {
+    getAllRoutes();
+  }, []);
+
+  console.log(allRoutes);
   return (
     <IonPage>
       <IonHeader class="ion-no-border">
@@ -113,7 +131,13 @@ const RouteList = () => {
             <IonTitle size="large">Available Routes</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {RouteData.length === 0 && <NoRoutesFound />}
+        {allRoutes ? (
+          allRoutes.map((route) => (
+            <RestSpotCard title={route.isActive}></RestSpotCard>
+          ))
+        ) : (
+          <NoRoutesFound />
+        )}
       </IonContent>
     </IonPage>
   );
