@@ -5,7 +5,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import ExploreContainer from "../components/ExploreContainer";
+import RestSpotCard from "../components/restSpotCard";
 
 const RestSpots = () => {
   return (
@@ -21,7 +21,36 @@ const RestSpots = () => {
             <IonTitle size="large">Rest Spots</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="Rest Spots" />
+        <RestSpotCard
+          title="Petro Travel Center"
+          showersQuantity={4}
+          availableSpaces={23}
+          address="3181 Donald Lee Hollowell Pkwy NW, Atlanta, GA 30318"
+        />
+        <RestSpotCard
+          title="Petro Travel Center"
+          showersQuantity={4}
+          availableSpaces={23}
+          address="3181 Donald Lee Hollowell Pkwy NW, Atlanta, GA 30318"
+        />
+        <RestSpotCard
+          title="Petro Travel Center"
+          showersQuantity={4}
+          availableSpaces={23}
+          address="3181 Donald Lee Hollowell Pkwy NW, Atlanta, GA 30318"
+        />
+        <RestSpotCard
+          title="Petro Travel Center"
+          showersQuantity={4}
+          availableSpaces={23}
+          address="3181 Donald Lee Hollowell Pkwy NW, Atlanta, GA 30318"
+        />
+        <RestSpotCard
+          title="Petro Travel Center"
+          showersQuantity={4}
+          availableSpaces={23}
+          address="3181 Donald Lee Hollowell Pkwy NW, Atlanta, GA 30318"
+        />
       </IonContent>
     </IonPage>
   );
