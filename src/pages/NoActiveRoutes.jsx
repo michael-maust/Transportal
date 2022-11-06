@@ -15,12 +15,11 @@ import {
   IonSearchbar,
 } from "@ionic/react";
 import routePlaceholder from "../assets/pictures/routePlaceholder";
-import CreateRouteModal from "../components/createRouteModal";
-
-const RouteData = [];
 
 const NoActiveRoutesFound = () => {
 
+  const modal = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <ion-content
       class="ion-padding"
@@ -39,6 +38,13 @@ const NoActiveRoutesFound = () => {
           position: "relative",
         }}
       >
+        <IonHeader style={{marginTop: "-245px", marginBottom: "280px"}} class="ion-no-border md header-md header-collapse-none hydrated">
+          <ion-toolbar class="toolbar-title-default md in-toolbar hydrated">
+              <ion-title class="md title-default hydrated" style={{marginLeft: "-0.6em"}}>
+                Active Routes
+              </ion-title>
+          </ion-toolbar>
+        </IonHeader>
         {routePlaceholder}
         <p
           style={{
@@ -52,39 +58,10 @@ const NoActiveRoutesFound = () => {
         >
           No Routes Found
         </p>
+        <p style={{fontFamily: "Roboto-Italic", marginBottom: "-5px"}}>Start a route from the</p>
+        <IonButton color="primary" routerLink="/routes" class="ion-color ion-color-primary md button button-solid ion-activatable ion-focusable hydrated ion-activated" style={{width: "200px", position: "relative", fontWeight: "bold"}}>Routes Page</IonButton>
 
-        <IonButton
-          onClick={() => setIsOpen((currentValue) => !currentValue)}
-          color="primary"
-          style={{
-            width: "200px",
-            position: "relative",
-          }}
-          id="open-modal"
-        >
-          Add Route
-        </IonButton>
-
-        <IonModal
-          isOpen={isOpen}
-          initialBreakpoint={0.25}
-          breakpoints={[0, 0.25, 0.5, 0.25]}
-          style={{
-            width: "80%",
-            height: "30%",
-            minHeight: 0,
-            maxHeight: "250px",
-            top: "50%",
-            bottom: 0,
-            left: "10%",
-            right: "10%",
-            paddingTop: "100px",
-          }}
-        >
-          <IonContent className="ion-padding" style={{height: "400px"}}>
-            <div className="">TEST</div>
-          </IonContent>
-        </IonModal>
+        
       </div>
     </ion-content>
   );

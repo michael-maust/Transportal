@@ -18,6 +18,7 @@ import ActiveRoute from "../pages/ActiveRoute";
 import {useRef} from "react";
 import {useEffect, useState} from "react";
 import {Redirect, Route} from "react-router";
+import NoActiveRoutesFound from "../pages/NoActiveRoutes";
 
 const SwitchTabBar = () => {
   const [activeTab, setActiveTab] = useState("tab0");
@@ -29,6 +30,12 @@ const SwitchTabBar = () => {
       url: "/routes",
       icon: map,
       component: RouteList,
+    },
+    {
+      label: "NoneActive",
+      url: "/noneactive",
+      icon: map,
+      component: NoActiveRoutesFound,
     },
     {
       label: "Active Route",
@@ -107,6 +114,11 @@ const SwitchTabBar = () => {
           <Route exact path="/welcome">
             <Welcome />
           </Route>
+
+          <Route exact path="/noneactive">
+            <NoActiveRoutesFound />
+          </Route>
+
         </IonRouterOutlet>
         <IonTabBar
           slot="bottom"
