@@ -7,17 +7,19 @@ import {
   IonTabButton,
   IonTabs,
 } from "@ionic/react";
-import {IonReactRouter} from "@ionic/react-router";
-import {speedometer, map, bed} from "ionicons/icons";
+import { IonReactRouter } from "@ionic/react-router";
+import { speedometer, map, bed } from "ionicons/icons";
 import RestSpots from "../pages/RestSpots";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
 import Welcome from "../pages/Welcome";
 import RouteList from "../pages/RouteList";
 import ActiveRoute from "../pages/ActiveRoute";
-import {useRef} from "react";
-import {useEffect, useState} from "react";
-import {Redirect, Route} from "react-router";
+import NoActiveRoutesFound from "../pages/NoActiveRoutes";
+import { useRef } from "react";
+import { useEffect, useState } from "react";
+import { Redirect, Route } from "react-router";
+import { PrivateRoute } from "./PrivateRoute";
 
 const SwitchTabBar = () => {
   const [activeTab, setActiveTab] = useState("tab0");
@@ -29,6 +31,12 @@ const SwitchTabBar = () => {
       url: "/routes",
       icon: map,
       component: RouteList,
+    },
+    {
+      label: "NoneActive",
+      url: "/noneactive",
+      icon: map,
+      component: NoActiveRoutesFound,
     },
     {
       label: "Active Route",
@@ -92,9 +100,7 @@ const SwitchTabBar = () => {
             );
           })}
 
-          <Route exact path="/">
-            <Redirect to="/routes" />
-          </Route>
+          <PrivateRoute component={RouteList} exact path="/" />
 
           <Route exact path="/signin">
             <SignIn />
@@ -107,6 +113,11 @@ const SwitchTabBar = () => {
           <Route exact path="/welcome">
             <Welcome />
           </Route>
+
+          <Route exact path="/noneactive">
+            <NoActiveRoutesFound />
+          </Route>
+
         </IonRouterOutlet>
         <IonTabBar
           slot="bottom"
@@ -119,7 +130,7 @@ const SwitchTabBar = () => {
             return (
               <IonTabButton
                 key={index}
-                style={isActive ? tabStyle : {color: "#C1C1C2"}}
+                style={isActive ? tabStyle : { color: "#C1C1C2" }}
                 tab={`tab${index}`}
                 href={tab.url}
               >

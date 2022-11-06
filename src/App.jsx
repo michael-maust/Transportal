@@ -1,4 +1,4 @@
-import {IonApp} from "@ionic/react";
+import { IonApp } from "@ionic/react";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -16,21 +16,27 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
-import "tailwindcss/tailwind.css";
-
 import "./index.css";
 
 /* Theme variables */
 import "./theme/variables.css";
 import "./theme/global.css";
 import SwitchTabBar from "./components/SwitchTabBar";
-import { useState } from "react";
+import { createContext, useState } from "react";
+import { AuthProvider } from "./contexts/Auth";
+
 
 const App = () => {
+  const [user, setUser] = useState();
+  const [test, setTest] = useState();
+  console.log("test");
+  console.log(test);
   return (
-    <IonApp>
-      <SwitchTabBar />
-    </IonApp>
+    <AuthProvider>
+      <IonApp>
+        <SwitchTabBar setUser={setUser} setTest={setTest} />
+      </IonApp>
+    </AuthProvider>
   );
 };
 
