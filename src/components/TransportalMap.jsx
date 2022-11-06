@@ -4,7 +4,7 @@ import { IonSearchbar, IonModal, IonButton, IonHeader, IonToolbar, IonButtons, I
 import SearchResult from "./SearchResult";
 import './TransportalMap.css';
 
-const TranpsortalMap = () => {
+const TranpsortalMap = (props) => {
     mapboxgl.accessToken = 'pk.eyJ1IjoiY2pzdHVja3kiLCJhIjoiY2xhMzlvcnhlMG94czNwbWhzN3Z3Z3V6cCJ9.FYRlIp7y4CKe7qhm66VsTQ';
     const mapContainer = useRef(null);
     const map = useRef(null);
@@ -18,6 +18,7 @@ const TranpsortalMap = () => {
     const [destinationName, setDestinationName] = useState('');
     const [searchResultsForStart, setSearchResultsForStart] = useState([]);
     const [searchResultsForDestination, setSearchResultsForDestination] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     const onWillDismissStartSearch = () => {
         setStartSearchOpen(false);
@@ -223,9 +224,6 @@ const TranpsortalMap = () => {
 
             const avgLng = (start[0] + destination[0]) / 2;
             const avgLat = (start[1] + destination[1]) / 2;
-            const difLng = Math.abs(start[0] - destination[0]);
-            const difLat = Math.abs(start[1] - destination[1]);
-            const largestDif = Math.max(difLat, difLng);
             
             if (map.current) {
                 map.current.setCenter([avgLng, avgLat]);
@@ -251,58 +249,53 @@ const TranpsortalMap = () => {
     });
 
     return (
-        <div>
-            {/* <h3 className="subtitle">Starting Location</h3>
-            <IonSearchbar animated={true} onIonChange={(event) => search(event.target.value, false)} />
-            <ul className="searchResults">
-                {searchResultsForStart.map(place => <SearchResult key={place.name} place={place} setLocation={handleSelectStart} />)}
-            </ul>
-            <h3 className=" text-white m-5">Destination</h3>
-            <IonSearchbar animated={true} onIonChange={(event) => search(event.target.value, true)} />
-            <ul className=" absolute w-full bg-slate-800">
-                {searchResultsForEnd.map(place => <SearchResult key={place.name} place={place} setLocation={handleSelectEnd} />)}
-            </ul> */}
-
-            <IonButton onClick={() => setStartSearchOpen(true)} expand="block">Select Starting Location</IonButton>
-            <p>Current Starting Location:</p>
-            <p>{startName}</p>
-            <IonModal ref={startSearchModal} isOpen={startSearchOpen} onWillDismiss={(ev) => onWillDismissStartSearch(ev)}>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonButtons slot="start">
-                            <IonButton onClick={() => startSearchModal.current?.dismiss()}>Cancel</IonButton>
-                        </IonButtons>
-                        <IonTitle>Select Starting Location</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <IonContent>
-                    <IonSearchbar animated={true} onIonChange={(event) => search(event.target.value, false)} />
-                    <ul className="searchResults">
-                        {searchResultsForStart.map(place => <SearchResult key={place.name} place={place} setLocation={handleSelectStart} />)}
-                    </ul>
-                </IonContent>
-            </IonModal>
-            <IonButton onClick={() => setDestinationSearchOpen(true)} expand="block">Select Destination</IonButton>
-            <p>Current Destination:</p>
-            <p>{destinationName}</p>
-            <IonModal ref={destinationSearchModal} isOpen={destinationSearchOpen} onWillDismiss={(ev) => onWillDismissDestinationSearch(ev)}>
-                <IonHeader>
-                    <IonToolbar>
-                        <IonButtons slot="start">
-                            <IonButton onClick={() => destinationSearchModal.current?.dismiss()}>Cancel</IonButton>
-                        </IonButtons>
-                        <IonTitle>Select Destination</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
-                <IonContent>
-                    <IonSearchbar animated={true} onIonChange={(event) => search(event.target.value, true)} />
-                    <ul className=" absolute w-full bg-slate-800">
-                        {searchResultsForDestination.map(place => <SearchResult key={place.name} place={place} setLocation={handleSelectDestination} />)}
-                    </ul>
-                </IonContent>
-            </IonModal>
-
-            <div ref={mapContainer} style={{height: '400px'}} />
+        <div style={{'margin-top': '25px'}}>
+            <div className="page-1" style={currentPage !== 1 ? {display: 'none'} : {}}>
+                <IonButton onClick={() => setStartSearchOpen(true)} expand="block">Select Starting Location</IonButton>
+                <p>Current Starting Location:</p>
+                <p>{startName}</p>
+                <IonModal ref={startSearchModal} isOpen={startSearchOpen} onWillDismiss={(ev) => onWillDismissStartSearch(ev)}>
+                    <IonHeader>
+                        <IonToolbar>
+                            <IonButtons slot="start">
+                                <IonButton onClick={() => startSearchModal.current?.dismiss()}>Cancel</IonButton>
+                            </IonButtons>
+                            <IonTitle>Select Starting Location</IonTitle>
+                        </IonToolbar>
+                    </IonHeader>
+                    <IonContent>
+                        <IonSearchbar animated={true} onIonChange={(event) => search(event.target.value, false)} />
+                        <ul className="searchResults">
+                            {searchResultsForStart.map(place => <SearchResult key={place.name} place={place} setLocation={handleSelectStart} />)}
+                        </ul>
+                    </IonContent>
+                </IonModal>
+                <IonButton onClick={() => setDestinationSearchOpen(true)} expand="block">Select Destination</IonButton>
+                <p>Current Destination:</p>
+                <p>{destinationName}</p>
+                <IonModal ref={destinationSearchModal} isOpen={destinationSearchOpen} onWillDismiss={(ev) => onWillDismissDestinationSearch(ev)}>
+                    <IonHeader>
+                        <IonToolbar>
+                            <IonButtons slot="start">
+                                <IonButton onClick={() => destinationSearchModal.current?.dismiss()}>Cancel</IonButton>
+                            </IonButtons>
+                            <IonTitle>Select Destination</IonTitle>
+                        </IonToolbar>
+                    </IonHeader>
+                    <IonContent>
+                        <IonSearchbar animated={true} onIonChange={(event) => search(event.target.value, true)} />
+                        <ul className=" absolute w-full bg-slate-800">
+                            {searchResultsForDestination.map(place => <SearchResult key={place.name} place={place} setLocation={handleSelectDestination} />)}
+                        </ul>
+                    </IonContent>
+                </IonModal>
+                <IonButton onClick={() => setCurrentPage(2)} expand="block" style={{'margin-top': '100px'}}>View Map</IonButton>
+            </div>
+            <div className="page-2" style={currentPage !== 2 ? {display: 'none'} : {}}>
+                <div ref={mapContainer} style={{height: '400px', 'margin-bottom': '25px'}} />
+                <IonButton onClick={() => setCurrentPage(1)} color="light">Back</IonButton>
+                <IonButton onClick={() => {props.persistRoute(start, destination);}}>Save Route</IonButton>
+            </div>
         </div>
     )
 }
