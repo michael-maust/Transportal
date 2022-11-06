@@ -14,20 +14,21 @@ import {
   IonImg,
   IonSearchbar,
 } from "@ionic/react";
-import { Geolocation } from "@capacitor/geolocation";
-
-// const getCurrentLocation = async () => {
-//   const coordinates = await Geolocation.getCurrentPosition();
-//   console.log('Current position: ', coordinates);
-// }
 import routePlaceholder from "../assets/pictures/routePlaceholder";
 import CreateRouteModal from "../components/createRouteModal";
 
 const RouteData = [];
 
 const NoRoutesFound = () => {
-  const modal = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [startCoords, setStartCoords] = useState([]);
+  const [destinationCoords, setDestinationCoords] = useState([]);
+
+  const persistRoute = (start, destination) => {
+    setStartCoords(start);
+    setDestinationCoords(destination);
+    setIsOpen(false);
+  }
 
   return (
     <ion-content
@@ -90,7 +91,7 @@ const NoRoutesFound = () => {
           }}
         >
           <IonContent className="ion-padding" style={{height: "400px"}}>
-            <div className="">TEST</div>
+            <CreateRouteModal onDismiss={() => setIsOpen(false)} persistRoute={persistRoute} />
           </IonContent>
         </IonModal>
       </div>
@@ -99,32 +100,19 @@ const NoRoutesFound = () => {
 };
 
 const RouteList = () => {
-  const [lat, setLat] = useState('');
-  const [lng, setLng] = useState('');
-
-  Geolocation.watchPosition({}, (data, error) => {
-    console.log(data)
-    if (data) {
-      setLat(data.coords.latitude);
-      setLng(data.coords.longitude);
-    }
-  });
-
   return (
-    <IonPage scrollable={false}>
+    <IonPage>
       <IonHeader class="ion-no-border">
         <IonToolbar>
           <IonTitle>Available Routes</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent scrollable={false}>
+      <IonContent>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Available Routes</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <p>Lat: {lat}</p>
-        <p>Lng: {lng}</p>
         {RouteData.length === 0 && <NoRoutesFound />}
       </IonContent>
     </IonPage>
