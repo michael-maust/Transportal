@@ -1,5 +1,5 @@
 import mapboxgl from "mapbox-gl";
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   IonSearchbar,
   IonModal,
@@ -21,6 +21,10 @@ const TranpsortalMap = ({
   destinationCoords,
 
   onlyShowMap = false,
+
+  start2,
+
+  end,
 }) => {
   mapboxgl.accessToken =
     "pk.eyJ1IjoiY2pzdHVja3kiLCJhIjoiY2xhMzlvcnhlMG94czNwbWhzN3Z3Z3V6cCJ9.FYRlIp7y4CKe7qhm66VsTQ";
@@ -41,10 +45,6 @@ const TranpsortalMap = ({
 
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log({destination, start});
-
-  console.log({start, destination});
-
   let hasLocations = start && destination;
 
   const onWillDismissStartSearch = () => {
@@ -56,7 +56,9 @@ const TranpsortalMap = ({
   };
 
   const handleSelectStart = (selectedResult) => {
-    const {name, coordinates: coords} = selectedResult;
+    console.log(start2);
+    start2(selectedResult);
+    const { name, coordinates: coords } = selectedResult;
     setStart(coords);
     setStartName(name);
 
@@ -107,7 +109,8 @@ const TranpsortalMap = ({
   };
 
   const handleSelectDestination = (selectedResult) => {
-    const {name, coordinates: coords} = selectedResult;
+    end(selectedResult);
+    const { name, coordinates: coords } = selectedResult;
     setDestination(coords);
     setDestinationName(name);
 
@@ -164,7 +167,7 @@ const TranpsortalMap = ({
   const search = async (searchTerm, destinationSearch) => {
     const query = await fetch(
       `https://api.mapbox.com/geocoding/v5/mapbox.places/${searchTerm}.json?types=place%2Cpostcode%2Caddress&access_token=pk.eyJ1IjoiY2pzdHVja3kiLCJhIjoiY2xhMzlvcnhlMG94czNwbWhzN3Z3Z3V6cCJ9.FYRlIp7y4CKe7qhm66VsTQ`,
-      {method: "GET"}
+      { method: "GET" }
     );
     const json = await query.json();
     const data = json.features.map((place) => ({
@@ -182,7 +185,7 @@ const TranpsortalMap = ({
   const getRoute = async () => {
     const query = await fetch(
       `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${destination[0]},${destination[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
-      {method: "GET"}
+      { method: "GET" }
     );
     const json = await query.json();
     const data = json.routes[0];
@@ -315,13 +318,13 @@ const TranpsortalMap = ({
       <div>
         <div
           className="page-1"
-          style={currentPage !== 1 ? {display: "none"} : {}}
+          style={currentPage !== 1 ? { display: "none" } : {}}
         >
           <IonButton onClick={() => setStartSearchOpen(true)} expand="block">
             Select Origin
           </IonButton>
           <p>Current Starting Location:</p>
-          <p style={{marginBottom: "30px"}}>{startName}</p>
+          <p style={{ marginBottom: "30px" }}>{startName}</p>
           <IonModal
             ref={startSearchModal}
             isOpen={startSearchOpen}
@@ -341,7 +344,7 @@ const TranpsortalMap = ({
             </IonHeader>
             <IonContent>
               <IonSearchbar
-                style={{color: "#FFE7DC"}}
+                style={{ color: "#FFE7DC" }}
                 animated={true}
                 onIonChange={(event) => search(event.target.value, false)}
               />
@@ -363,7 +366,7 @@ const TranpsortalMap = ({
             Select Destination
           </IonButton>
           <p>Current Destination:</p>
-          <p style={{marginBottom: "30px"}}>{destinationName}</p>
+          <p style={{ marginBottom: "30px" }}>{destinationName}</p>
           <IonModal
             ref={destinationSearchModal}
             isOpen={destinationSearchOpen}
@@ -371,7 +374,7 @@ const TranpsortalMap = ({
           >
             <IonHeader>
               <IonToolbar>
-                <IonTitle style={{alignText: "center"}}>
+                <IonTitle style={{ alignText: "center" }}>
                   Select Destination
                 </IonTitle>
                 <IonButtons slot="end">
@@ -383,7 +386,7 @@ const TranpsortalMap = ({
                 </IonButtons>
               </IonToolbar>
             </IonHeader>
-            <IonContent style={{display: "flex", margin: "auto"}}>
+            <IonContent style={{ display: "flex", margin: "auto" }}>
               <IonSearchbar
                 color="red"
                 animated={true}
@@ -418,11 +421,11 @@ const TranpsortalMap = ({
         </div>
         <div
           className="page-2"
-          style={currentPage !== 2 ? {display: "none"} : {}}
+          style={currentPage !== 2 ? { display: "none" } : {}}
         >
           <div
             ref={mapContainer}
-            style={{height: "400px", "margin-bottom": "25px", width: "100%"}}
+            style={{ height: "400px", "margin-bottom": "25px", width: "100%" }}
           />
           <IonButton onClick={() => setCurrentPage(1)} color="light">
             Close Map
@@ -443,7 +446,7 @@ const TranpsortalMap = ({
     return (
       <div
         ref={mapContainer}
-        style={{height: "400px", "margin-bottom": "25px", width: "100%"}}
+        style={{ height: "400px", "margin-bottom": "25px", width: "100%" }}
       />
     );
   }

@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   IonContent,
   IonHeader,
@@ -16,6 +16,7 @@ import {
 } from "@ionic/react";
 import routePlaceholder from "../assets/pictures/routePlaceholder";
 import CreateRouteModal from "../components/createRouteModal";
+import { supabase } from "../supabase";
 import RouteCard from "../components/routeCard";
 
 const RouteData = [""];
@@ -24,7 +25,7 @@ const NoRoutesFound = ({setIsOpen, isOpen, persistRoute, noData}) => {
   return (
     <ion-content
       class="ion-padding"
-      style={{overflow: "hidden"}}
+      style={{ overflow: "hidden" }}
       fullscreen={true}
     >
       <div
@@ -85,7 +86,7 @@ const NoRoutesFound = ({setIsOpen, isOpen, persistRoute, noData}) => {
             paddingTop: "100px",
           }}
         >
-          <IonContent className="ion-padding" style={{height: "400px"}}>
+          <IonContent className="ion-padding" style={{ height: "400px" }}>
             <CreateRouteModal
               onDismiss={() => setIsOpen(false)}
               persistRoute={persistRoute}
@@ -98,13 +99,24 @@ const NoRoutesFound = ({setIsOpen, isOpen, persistRoute, noData}) => {
 };
 
 const RouteList = () => {
+  const [allRoutes, setAllRoutes] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [startCoords, setStartCoords] = useState([]);
-  const [destinationCoords, setDestinationCoords] = useState([]);
+  const [addedNewRoute, setAddedNewRoute] = useState(false);
 
-  const persistRoute = (start, destination) => {
-    setStartCoords(start);
-    setDestinationCoords(destination);
+  const getAllRoutes = async () => {
+    let { data: Routes, error } = await supabase.from("Routes").select("*");
+
+    setAllRoutes(Routes);
+  };
+
+  useEffect(() => {
+    setAddedNewRoute(false);
+    getAllRoutes();
+  }, [addedNewRoute]);
+
+  const persistRoute = () => {
+    console.log('In persist route')
+    setAddedNewRoute(true);
     setIsOpen(false);
   };
 
@@ -123,21 +135,18 @@ const RouteList = () => {
             <IonTitle size="large">Available Routes</IonTitle>
           </IonToolbar>
         </IonHeader>
-
-        <NoRoutesFound
-          setIsOpen={setIsOpen}
-          isOpen={isOpen}
-          persistRoute={persistRoute}
-          noData={RouteData.length === 0}
-        />
-
-        <RouteCard
-          originCity="Kansas City"
-          DestinationCity="Springfield"
-          hours={"12 - 17"}
-          miles={831}
-          destinationAddress="2075 Princeton Ave, College Park, GA 30337"
-        />
+        {allRoutes.length > 0 && (
+          allRoutes.map((route) => (
+            <RouteCard
+              originCity={route.origin_address}
+              DestinationCity={route.destination_address}
+              hours={"12 - 17"}
+              miles={831}
+              destinationAddress={route.destination_address}
+            ></RouteCard>
+          ))
+        )}
+        <NoRoutesFound isOpen={isOpen} setIsOpen={setIsOpen} persistRoute={persistRoute} noData={RouteData.length === 0} />
       </IonContent>
     </IonPage>
   );
