@@ -40,7 +40,7 @@ const SwitchTabBar = () => {
       label: "Rest",
       url: "/rest",
       icon: bed,
-      component: RestSpots,
+      component: Welcome,
     },
   ];
 
