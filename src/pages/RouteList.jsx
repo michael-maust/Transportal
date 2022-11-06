@@ -16,8 +16,9 @@ import {
 } from "@ionic/react";
 import routePlaceholder from "../assets/pictures/routePlaceholder";
 import CreateRouteModal from "../components/createRouteModal";
+import RouteCard from "../components/routeCard";
 
-const RouteData = [];
+const RouteData = [""];
 
 const NoRoutesFound = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -117,6 +118,14 @@ const RouteList = () => {
           </IonToolbar>
         </IonHeader>
         {RouteData.length === 0 && <NoRoutesFound />}
+
+        <RouteCard
+          originCity="Kansas City"
+          DestinationCity="Springfield"
+          hours={"12 - 17"}
+          miles={831}
+          destinationAddress="2075 Princeton Ave, College Park, GA 30337"
+        />
       </IonContent>
     </IonPage>
   );
