@@ -154,6 +154,10 @@ ion-header ion-title {
   text-transform: uppercase;
 }
 
+ion-searchbar {
+  --color: red;
+}
+
 .welcome-p {
   max-width: 23em;
 }
@@ -165,9 +169,15 @@ ion-header ion-title {
 ion-card {
   --background: #3d3d3e;
   border-radius: 16px;
+  font-size: 0 !important;
+  padding-inline: 0;
 }
 
 start-button,
 a:hover {
   color: green;
+}
+
+.mapboxgl-ctrl-attrib-button {
+  visibility: hidden;
 }

@@ -13,7 +13,15 @@ import {
 import SearchResult from "./SearchResult";
 import "./TransportalMap.css";
 
-const TranpsortalMap = (props) => {
+// TODO: fix rendering before styling issue
+
+const TranpsortalMap = ({
+  startCoords,
+
+  destinationCoords,
+
+  onlyShowMap = false,
+}) => {
   mapboxgl.accessToken =
     "pk.eyJ1IjoiY2pzdHVja3kiLCJhIjoiY2xhMzlvcnhlMG94czNwbWhzN3Z3Z3V6cCJ9.FYRlIp7y4CKe7qhm66VsTQ";
   const mapContainer = useRef(null);
@@ -22,14 +30,18 @@ const TranpsortalMap = (props) => {
   const [startSearchOpen, setStartSearchOpen] = useState(false);
   const destinationSearchModal = useRef(null);
   const [destinationSearchOpen, setDestinationSearchOpen] = useState(false);
-  const [start, setStart] = useState(null);
-  const [destination, setDestination] = useState(null);
+  const [start, setStart] = useState(startCoords ?? null);
+  const [destination, setDestination] = useState(destinationCoords ?? null);
   const [startName, setStartName] = useState("");
   const [destinationName, setDestinationName] = useState("");
   const [searchResultsForStart, setSearchResultsForStart] = useState([]);
   const [searchResultsForDestination, setSearchResultsForDestination] =
     useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  console.log({start, destination});
 
   let hasLocations = start && destination;
 
@@ -111,36 +123,42 @@ const TranpsortalMap = (props) => {
       ],
     };
 
-    if (map.current.getLayer("destination")) {
-      map.current.getSource("destination").setData(destination);
-    } else {
-      map.current.addLayer({
-        id: "destination",
-        type: "circle",
-        source: {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: [
-              {
-                type: "Feature",
-                properties: {},
-                geometry: {
-                  type: "Point",
-                  coordinates: coords,
+    function addLayer() {
+      if (map.current.getLayer("destination")) {
+        map.current.getSource("destination").setData(destination);
+      } else {
+        map.current.addLayer({
+          id: "destination",
+          type: "circle",
+          source: {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: [
+                {
+                  type: "Feature",
+                  properties: {},
+                  geometry: {
+                    type: "Point",
+                    coordinates: coords,
+                  },
                 },
-              },
-            ],
+              ],
+            },
           },
-        },
-        paint: {
-          "circle-radius": 10,
-          "circle-color": "#DF7A5E",
-        },
-      });
+          paint: {
+            "circle-radius": 10,
+            "circle-color": "#DF7A5E",
+          },
+        });
+      }
+
+      onWillDismissDestinationSearch();
     }
 
-    onWillDismissDestinationSearch();
+    setTimeout(function () {
+      addLayer();
+    }, 0);
   };
 
   const search = async (searchTerm, destinationSearch) => {
@@ -178,26 +196,32 @@ const TranpsortalMap = (props) => {
       },
     };
 
-    if (map.current.getSource("route")) {
-      map.current.getSource("route").setData(geojson);
-    } else {
-      map.current.addLayer({
-        id: "route",
-        type: "line",
-        source: {
-          type: "geojson",
-          data: geojson,
-        },
-        layout: {
-          "line-join": "round",
-          "line-cap": "round",
-        },
-        paint: {
-          "line-color": "#DF7A5E",
-          "line-width": 5,
-        },
-      });
+    function addLayerTwo() {
+      if (map.current.getSource("route")) {
+        map.current.getSource("route").setData(geojson);
+      } else {
+        map.current.addLayer({
+          id: "route",
+          type: "line",
+          source: {
+            type: "geojson",
+            data: geojson,
+          },
+          layout: {
+            "line-join": "round",
+            "line-cap": "round",
+          },
+          paint: {
+            "line-color": "#DF7A5E",
+            "line-width": 5,
+          },
+        });
+      }
     }
+
+    setTimeout(function () {
+      addLayerTwo();
+    }, 100);
   };
 
   const getZoomLevelForGeojsonArea = (lat_min, lat_max, lng_min, lng_max) => {
@@ -281,119 +305,143 @@ const TranpsortalMap = (props) => {
     });
   });
 
-  return (
-    <div style={{"margin-top": "25px"}}>
-      <div
-        className="page-1"
-        style={currentPage !== 1 ? {display: "none"} : {}}
-      >
-        <IonButton onClick={() => setStartSearchOpen(true)} expand="block">
-          Select Starting Location
-        </IonButton>
-        <p>Current Starting Location:</p>
-        <p>{startName}</p>
-        <IonModal
-          ref={startSearchModal}
-          isOpen={startSearchOpen}
-          onWillDismiss={(ev) => onWillDismissStartSearch(ev)}
-        >
-          <IonHeader>
-            <IonToolbar>
-              <IonButtons slot="start">
-                <IonButton onClick={() => startSearchModal.current?.dismiss()}>
-                  Cancel
-                </IonButton>
-              </IonButtons>
-              <IonTitle>Select Starting Location</IonTitle>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent>
-            <IonSearchbar
-              animated={true}
-              onIonChange={(event) => search(event.target.value, false)}
-            />
-            <ul className="searchResults">
-              {searchResultsForStart.map((place) => (
-                <SearchResult
-                  key={place.name}
-                  place={place}
-                  setLocation={handleSelectStart}
-                />
-              ))}
-            </ul>
-          </IonContent>
-        </IonModal>
-        <IonButton
-          onClick={() => setDestinationSearchOpen(true)}
-          expand="block"
-        >
-          Select Destination
-        </IonButton>
-        <p>Current Destination:</p>
-        <p>{destinationName}</p>
-        <IonModal
-          ref={destinationSearchModal}
-          isOpen={destinationSearchOpen}
-          onWillDismiss={(ev) => onWillDismissDestinationSearch(ev)}
-        >
-          <IonHeader>
-            <IonToolbar>
-              <IonButtons slot="start">
-                <IonButton
-                  onClick={() => destinationSearchModal.current?.dismiss()}
-                >
-                  Cancel
-                </IonButton>
-              </IonButtons>
-              <IonTitle>Select Destination</IonTitle>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent>
-            <IonSearchbar
-              animated={true}
-              onIonChange={(event) => search(event.target.value, true)}
-            />
-            <ul className=" absolute w-full bg-slate-800">
-              {searchResultsForDestination.map((place) => (
-                <SearchResult
-                  key={place.name}
-                  place={place}
-                  setLocation={handleSelectDestination}
-                />
-              ))}
-            </ul>
-          </IonContent>
-        </IonModal>
-        <IonButton
-          disabled={!hasLocations}
-          onClick={() => setCurrentPage(2)}
-          expand="block"
-          //   style={{"margin-top": "100px"}}
-        >
-          View Map
-        </IonButton>
-      </div>
-      <div
-        className="page-2"
-        style={currentPage !== 2 ? {display: "none"} : {}}
-      >
+  if (!onlyShowMap) {
+    return (
+      <div>
         <div
-          ref={mapContainer}
-          style={{height: "400px", "margin-bottom": "25px", width: "100%"}}
-        />
-        <IonButton onClick={() => setCurrentPage(1)} color="light">
-          Close Map
-        </IonButton>
-        {/* <IonButton
+          className="page-1"
+          style={currentPage !== 1 ? {display: "none"} : {}}
+        >
+          <IonButton onClick={() => setStartSearchOpen(true)} expand="block">
+            Select Origin
+          </IonButton>
+          <p>Current Starting Location:</p>
+          <p style={{marginBottom: "30px"}}>{startName}</p>
+          <IonModal
+            ref={startSearchModal}
+            isOpen={startSearchOpen}
+            onWillDismiss={(ev) => onWillDismissStartSearch(ev)}
+          >
+            <IonHeader>
+              <IonToolbar>
+                <IonButtons slot="end">
+                  <IonButton
+                    onClick={() => startSearchModal.current?.dismiss()}
+                  >
+                    Cancel
+                  </IonButton>
+                </IonButtons>
+                <IonTitle>Select Origin</IonTitle>
+              </IonToolbar>
+            </IonHeader>
+            <IonContent>
+              <IonSearchbar
+                style={{color: "#FFE7DC"}}
+                animated={true}
+                onIonChange={(event) => search(event.target.value, false)}
+              />
+              <ul className="searchResults">
+                {searchResultsForStart.map((place) => (
+                  <SearchResult
+                    key={place.name}
+                    place={place}
+                    setLocation={handleSelectStart}
+                  />
+                ))}
+              </ul>
+            </IonContent>
+          </IonModal>
+          <IonButton
+            onClick={() => setDestinationSearchOpen(true)}
+            expand="block"
+          >
+            Select Destination
+          </IonButton>
+          <p>Current Destination:</p>
+          <p style={{marginBottom: "30px"}}>{destinationName}</p>
+          <IonModal
+            ref={destinationSearchModal}
+            isOpen={destinationSearchOpen}
+            onWillDismiss={(ev) => onWillDismissDestinationSearch(ev)}
+          >
+            <IonHeader>
+              <IonToolbar>
+                <IonTitle style={{alignText: "center"}}>
+                  Select Destination
+                </IonTitle>
+                <IonButtons slot="end">
+                  <IonButton
+                    onClick={() => destinationSearchModal.current?.dismiss()}
+                  >
+                    Cancel
+                  </IonButton>
+                </IonButtons>
+              </IonToolbar>
+            </IonHeader>
+            <IonContent style={{display: "flex", margin: "auto"}}>
+              <IonSearchbar
+                color="red"
+                animated={true}
+                onIonChange={(event) => search(event.target.value, true)}
+                style={{
+                  color: "#FFE7DC",
+                  background: "#3D3D3E",
+                  padding: 0,
+
+                  width: "100%",
+                }}
+              />
+              <ul className=" absolute w-full bg-slate-800">
+                {searchResultsForDestination.map((place) => (
+                  <SearchResult
+                    key={place.name}
+                    place={place}
+                    setLocation={handleSelectDestination}
+                  />
+                ))}
+              </ul>
+            </IonContent>
+          </IonModal>
+          <IonButton
+            disabled={!hasLocations}
+            onClick={() => setCurrentPage(2)}
+            expand="block"
+            //   style={{"margin-top": "100px"}}
+          >
+            View Map
+          </IonButton>
+        </div>
+        <div
+          className="page-2"
+          style={currentPage !== 2 ? {display: "none"} : {}}
+        >
+          <div
+            ref={mapContainer}
+            style={{height: "400px", "margin-bottom": "25px", width: "100%"}}
+          />
+          <IonButton onClick={() => setCurrentPage(1)} color="light">
+            Close Map
+          </IonButton>
+          {/* <IonButton
           onClick={() => {
             props.persistRoute(start, destination);
           }}
         >
           Save Route
         </IonButton> */}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
+  if (onlyShowMap) {
+    return (
+      <div
+        ref={mapContainer}
+        style={{height: "400px", "margin-bottom": "25px", width: "100%"}}
+      />
+    );
+  }
 };
 
 export default TranpsortalMap;
