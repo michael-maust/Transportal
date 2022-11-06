@@ -23,17 +23,15 @@
   src: url("../assets/fonts/Roboto-Italic.ttf");
 }
 
-
-
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
   --ion-color-primary: #df7a5e;
-	--ion-color-primary-rgb: 223,122,94;
-	--ion-color-primary-contrast: #ffffff;
-	--ion-color-primary-contrast-rgb: 0,0,0;
-	--ion-color-primary-shade: #c46b53;
-	--ion-color-primary-tint: #e2876e;
+  --ion-color-primary-rgb: 223, 122, 94;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 0, 0, 0;
+  --ion-color-primary-shade: #c46b53;
+  --ion-color-primary-tint: #e2876e;
 
   /** secondary **/
   --ion-color-secondary: #3dc2ff;
@@ -162,4 +160,15 @@ ion-header ion-title {
 
 .welcome-title {
   max-width: 20em;
+}
+
+ion-card {
+  --background: #3d3d3e;
+  border-radius: 16px;
+  max-width: 400px;
+}
+
+start-button,
+a:hover {
+  color: green;
 }
