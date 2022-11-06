@@ -7,8 +7,8 @@ import {
   IonTabButton,
   IonTabs,
 } from "@ionic/react";
-import { IonReactRouter } from "@ionic/react-router";
-import { speedometer, map, bed } from "ionicons/icons";
+import {IonReactRouter} from "@ionic/react-router";
+import {speedometer, map, bed} from "ionicons/icons";
 import RestSpots from "../pages/RestSpots";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
@@ -16,14 +16,22 @@ import Welcome from "../pages/Welcome";
 import RouteList from "../pages/RouteList";
 import ActiveRoute from "../pages/ActiveRoute";
 import NoActiveRoutesFound from "../pages/NoActiveRoutes";
-import { useRef } from "react";
-import { useEffect, useState } from "react";
-import { Redirect, Route } from "react-router";
-import { PrivateRoute } from "./PrivateRoute";
+import {useRef} from "react";
+import {useEffect, useState} from "react";
+import {Route} from "react-router";
+import {PrivateRoute} from "./PrivateRoute";
 
 const SwitchTabBar = () => {
+  const [showTabBar, setShowTabBar] = useState(false);
   const [activeTab, setActiveTab] = useState("tab0");
   const switchRefs = useRef([]);
+
+  let pathArray = window.location.pathname.split("/");
+
+  useEffect(() => {
+    let showTabBar = ["signin", "signup", "welcome"].includes(pathArray[1]);
+    setShowTabBar(showTabBar);
+  }, [pathArray]);
 
   const tabs = [
     {
@@ -33,14 +41,8 @@ const SwitchTabBar = () => {
       component: RouteList,
     },
     {
-      label: "NoneActive",
-      url: "/noneactive",
-      icon: map,
-      component: NoActiveRoutesFound,
-    },
-    {
       label: "Active Route",
-      url: "/settings",
+      url: "/activeRoute",
       icon: speedometer,
       component: ActiveRoute,
     },
@@ -84,6 +86,7 @@ const SwitchTabBar = () => {
   };
 
   useEffect(() => {
+    if (showTabBar) return;
     const tabIndex = activeTab.match(/\d+/)[0];
     switchRefs.current[tabIndex].animation.play();
   }, [activeTab]);
@@ -113,13 +116,10 @@ const SwitchTabBar = () => {
           <Route exact path="/welcome">
             <Welcome />
           </Route>
-
-          <Route exact path="/noneactive">
-            <NoActiveRoutesFound />
-          </Route>
-
         </IonRouterOutlet>
+
         <IonTabBar
+          hidden={showTabBar}
           slot="bottom"
           onIonTabsDidChange={(e) => setActiveTab(e.detail.tab)}
         >
@@ -130,7 +130,7 @@ const SwitchTabBar = () => {
             return (
               <IonTabButton
                 key={index}
-                style={isActive ? tabStyle : { color: "#C1C1C2" }}
+                style={isActive ? tabStyle : {color: "#C1C1C2"}}
                 tab={`tab${index}`}
                 href={tab.url}
               >

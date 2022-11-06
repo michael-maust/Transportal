@@ -95,7 +95,6 @@ function RestSpotCard({title, showersQuantity, availableSpaces, address}) {
         </div>
         <div style={{display: "flex", justifyContent: "end"}}>
           <a
-            class="start-button"
             style={{
               color: "#FFE7DC",
               whiteSpace: "normal",

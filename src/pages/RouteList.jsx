@@ -94,13 +94,13 @@ const NoRoutesFound = () => {
 
 const RouteList = () => {
   return (
-    <IonPage scrollable={false}>
+    <IonPage>
       <IonHeader class="ion-no-border">
         <IonToolbar>
           <IonTitle>Available Routes</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent scrollable={false}>
+      <IonContent>
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Available Routes</IonTitle>
