@@ -16,6 +16,7 @@ import { logIn } from "ionicons/icons";
 import { supabase } from "../supabase";
 import { useAuth } from "../contexts/Auth";
 import { useHistory } from "react-router-dom";
+import logo from "../assets/pictures/logo";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -47,12 +48,34 @@ const SignIn = () => {
 
   return (
     <IonPage>
-      <IonHeader >
-        <IonToolbar>
-          <IonTitle>Sign In</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
+      <ion-content
+      class="ion-padding"
+      style={{overflow: "hidden",}}
+      fullscreen={true}
+    >
+        <div style={{
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+          gap: "8px",
+          width: "full",
+          height: "100%",
+          position: "relative",
+          
+        }}
+      >
+       {logo}
+            <h4
+              style={{
+                color: "#DF7A5E",
+                marginTop: "-12px",
+                fontFamily: "Roboto",
+                fontSize: "24px",
+              }}
+            >
+              DRIVE WITH CLARITY
+            </h4>
+          <p style={{fontFamily: "Roboto", fontWeight: "400",fontSize:"32px", marginTop: "82px"}}>Sign in to continue</p>
         <form onSubmit={handleSubmit}>
           <IonItem>
             <IonLabel>Email</IonLabel>
@@ -75,13 +98,8 @@ const SignIn = () => {
             Sign In
           </IonButton>
         </form>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Sign In</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Sign In page" />
-      </IonContent>
+        </div>
+      </ion-content>
     </IonPage>
   );
 };
