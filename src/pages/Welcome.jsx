@@ -38,7 +38,7 @@ const Welcome = () => {
             </h1>
           </IonHeader>
           <p
-            className="welcome-button"
+            className="welcome-p"
             style={{
               fontFamily: "Roboto-Italic",
               margin: "20px",

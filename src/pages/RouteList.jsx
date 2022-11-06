@@ -18,19 +18,9 @@ import routePlaceholder from "../assets/pictures/routePlaceholder";
 import CreateRouteModal from "../components/createRouteModal";
 import RouteCard from "../components/routeCard";
 
-const RouteData = [];
+const RouteData = [''];
 
-const NoRoutesFound = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [startCoords, setStartCoords] = useState([]);
-  const [destinationCoords, setDestinationCoords] = useState([]);
-
-  const persistRoute = (start, destination) => {
-    setStartCoords(start);
-    setDestinationCoords(destination);
-    setIsOpen(false);
-  };
-
+const NoRoutesFound = ({setIsOpen, isOpen, persistRoute}) => {
   return (
     <ion-content
       class="ion-padding"
@@ -104,11 +94,21 @@ const NoRoutesFound = () => {
 };
 
 const RouteList = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [startCoords, setStartCoords] = useState([]);
+  const [destinationCoords, setDestinationCoords] = useState([]);
+
+  const persistRoute = (start, destination) => {
+    setStartCoords(start);
+    setDestinationCoords(destination);
+    setIsOpen(false);
+  };
+
   return (
     <IonPage>
       <IonHeader class="ion-no-border">
         <IonToolbar>
-          <IonTitle>Available Routes</IonTitle>
+          <IonTitle style={{display: 'inline-block'}}>Available Routes</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -117,7 +117,7 @@ const RouteList = () => {
             <IonTitle size="large">Available Routes</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {RouteData.length === 0 && <NoRoutesFound />}
+        {RouteData.length === 0 && <NoRoutesFound setIsOpen={setIsOpen} isOpen={isOpen} persistRoute={persistRoute} />}
 
         <RouteCard
           originCity="Kansas City"
@@ -126,6 +126,20 @@ const RouteList = () => {
           miles={831}
           destinationAddress="2075 Princeton Ave, College Park, GA 30337"
         />
+        <div style={{display: 'flex'}}>
+          <IonButton
+            onClick={() => setIsOpen((currentValue) => !currentValue)}
+            color="primary"
+            style={{
+              width: "200px",
+              position: "relative",
+              margin: 'auto'
+            }}
+            id="open-modal"
+          >
+            Add Route
+          </IonButton>
+        </div>
       </IonContent>
     </IonPage>
   );
