@@ -18,7 +18,7 @@ import routePlaceholder from "../assets/pictures/routePlaceholder";
 import CreateRouteModal from "../components/createRouteModal";
 import RouteCard from "../components/routeCard";
 
-const RouteData = [];
+const RouteData = [''];
 
 const NoRoutesFound = ({setIsOpen, isOpen, persistRoute}) => {
   return (
@@ -109,14 +109,6 @@ const RouteList = () => {
       <IonHeader class="ion-no-border">
         <IonToolbar>
           <IonTitle style={{display: 'inline-block'}}>Available Routes</IonTitle>
-          <IonButton
-            onClick={() => setIsOpen((currentValue) => !currentValue)}
-            color="primary"
-            style={{display: 'inline-block', float: 'right', 'margin-right': '20px '}}
-            id="open-modal"
-          >
-            Add Route
-          </IonButton>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -134,6 +126,20 @@ const RouteList = () => {
           miles={831}
           destinationAddress="2075 Princeton Ave, College Park, GA 30337"
         />
+        <div style={{display: 'flex'}}>
+          <IonButton
+            onClick={() => setIsOpen((currentValue) => !currentValue)}
+            color="primary"
+            style={{
+              width: "200px",
+              position: "relative",
+              margin: 'auto'
+            }}
+            id="open-modal"
+          >
+            Add Route
+          </IonButton>
+        </div>
       </IonContent>
     </IonPage>
   );
