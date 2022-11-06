@@ -154,8 +154,8 @@ ion-header ion-title {
   text-transform: uppercase;
 }
 
-.welcome-button {
-  max-width: 30em;
+.welcome-p {
+  max-width: 23em;
 }
 
 .welcome-title {
